@@ -11,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT;
 
 
-const mongoUrl = "mongodb://localhost:27017/Registration";
+const mongoUrl = process.env.MONGO_URI;
 
 mongoose
   .connect(mongoUrl, {
