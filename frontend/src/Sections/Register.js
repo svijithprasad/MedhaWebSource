@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import './Register.css';
+import axios from 'axios';
+
 
 const Register = () => {
+  const [paymentSuccess, setPaymentSucces] = useState(false);
+  const [registeredDetails, setRegisteredDetails] = useState();
+  console.log(paymentSuccess);
   const [events, setEvents] = useState({
     coding: false,
     webDesigning: false,
@@ -9,7 +14,7 @@ const Register = () => {
     gaming: false,
     productLaunch: false,
     itManager: false,
-    reels: false,
+    reels: false
   });
 
   const [eventDetails, setEventDetails] = useState({
@@ -27,8 +32,8 @@ const Register = () => {
     phone: '',
     collegeName: '',
     course: 'BCA',
+    semester: '',
     transactionId: '',
-    otherCollegeName: '', // New field for "Others" college name
   });
 
   const [errors, setErrors] = useState({});
@@ -62,6 +67,7 @@ const Register = () => {
     if (!formData.name) newErrors.name = 'Head Name is required';
     if (!formData.phone) newErrors.phone = 'Head Phone no is required';
     if (!formData.collegeName) newErrors.collegeName = 'College Name is required';
+    if (!formData.semester) newErrors.semester = 'Semester is required';
 
     // Validate at least one event is selected
     if (!Object.values(events).some((event) => event)) {
@@ -89,23 +95,233 @@ const Register = () => {
       }
     });
 
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (event) => {
+  //this is for the pay button
+  const paymentHandler = async (e) => {
+
+
+    //total amount calculation
+    let totalParticipants = 0;
+    Object.keys(eventDetails).forEach((event) => {
+      totalParticipants += Object.values(eventDetails[event]).filter((p) => p.trim() !== '').length;
+    });
+
+    const calculatedAmount = totalParticipants * 10000;
+    setTotalAmount(calculatedAmount);
+
+    const amount = calculatedAmount;
+    const currency = "INR";
+    const receiptId = "receiptId1";
+
+    const response = await fetch("http://localhost:5088/order", {
+      method: "POST",
+      body: JSON.stringify({
+        amount,
+        currency,
+        receipt: receiptId,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const order = await response.json();
+    console.log(order);
+
+    const registrationData = {
+      name: formData.name,
+      phone: formData.phone,
+      collegeName: formData.collegeName,
+      course: formData.course,
+      semester: formData.semester,
+      transactionId: formData.transactionId,
+      events: Object.keys(events).filter(event => events[event]),
+      eventDetails: Object.fromEntries(
+        Object.entries(eventDetails).filter(([event, participants]) =>
+          Object.values(participants).some(participant => participant.trim() !== '')
+        )
+      ),
+      totalAmount: calculatedAmount / 100,
+    };
+
+
+    var options = {
+      key: "rzp_test_xjaCfVdnrPK2Q9", // Enter the Key ID generated from the Dashboard
+      amount, // Amount is in currency subunits. Default currency is INR. Hence, 50880 refers to 50880 paise
+      currency,
+      name: "Medha", //your business name
+      description: "Test Transaction",
+      image: "https://example.com/your_logo",
+      order_id: order.id, //This is a sample Order ID. Pass the id obtained in the response of Step 1
+      handler: async function (response) {
+        const body = {
+          ...response,
+        };
+
+        const validateRes = await fetch(
+          "http://localhost:5088/order/validate",
+          {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const jsonRes = await validateRes.json();
+        if (jsonRes.msg === 'success') {
+          setPaymentSucces(true);
+          setRegisteredDetails(registrationData);
+          console.log('Payment Successful', registrationData);
+
+          // Send registration data to the backend
+          const registerRes = await fetch("http://localhost:5088/register", {
+            method: "POST",
+            body: JSON.stringify(registrationData),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+        }
+        console.log(jsonRes);
+      },
+      prefill: {
+        //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+        name: "Web Dev Matrix", //your customer's name
+        email: "webdevmatrix@example.com",
+        contact: "9000000000", //Provide the customer's phone number for better conversion rates
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+    var rzp1 = new window.Razorpay(options);
+    rzp1.on("payment.failed", function (response) {
+      alert(response.error.code);
+      alert(response.error.description);
+      alert(response.error.source);
+      alert(response.error.step);
+      alert(response.error.reason);
+      alert(response.error.metadata.order_id);
+      alert(response.error.metadata.payment_id);
+    });
+    rzp1.open();
+    e.preventDefault();
+
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (validateForm()) {
-      console.log('Form submitted successfully:', formData, eventDetails);
-    } else {
+
+    if (!validateForm()) {
       console.log('Form validation failed');
+      return;
+    }
+
+    let totalParticipants = 0;
+    Object.keys(eventDetails).forEach((event) => {
+      totalParticipants += Object.values(eventDetails[event]).filter((p) => p.trim() !== '').length;
+    });
+
+    const calculatedAmount = totalParticipants * 100;
+    setTotalAmount(calculatedAmount);
+
+    const registrationData = {
+      name: formData.name,
+      phone: formData.phone,
+      collegeName: formData.collegeName,
+      course: formData.course,
+      semester: formData.semester,
+      transactionId: formData.transactionId,
+      events: Object.keys(events).filter(event => events[event]),
+      eventDetails: eventDetails,
+      totalAmount: calculatedAmount,
+    };
+
+
+
+    try {
+      const response = await axios('http://localhost:5088/order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(registrationData)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Registration Successful!');
+        console.log('Server Response:', data);
+
+        setFormData({
+          name: '',
+          phone: '',
+          collegeName: '',
+          course: 'BCA',
+          semester: '',
+          transactionId: '',
+        });
+
+        setEvents({
+          coding: false,
+          webDesigning: false,
+          quizz: false,
+          gaming: false,
+          productLaunch: false,
+          itManager: false,
+          reels: false,
+        });
+
+        setEventDetails({
+          coding: { participant1: '', participant2: '' },
+          webDesigning: { participant1: '', participant2: '' },
+          quizz: { participant1: '', participant2: '' },
+          gaming: { participant1: '', participant2: '', participant3: '', participant4: '' },
+          productLaunch: { participant1: '', participant2: '' },
+          itManager: { participant1: '' },
+          reels: { participant1: '', participant2: '' },
+        });
+
+        setTotalAmount(0);
+
+      } else {
+        alert(`Registration failed: ${data.error}`);
+        console.error('Error:', data);
+      }
+    } catch (error) {
+      alert('An error occurred. Please try again later.');
+      console.error('Network Error:', error);
     }
   };
 
-  const handlePayButtonClick = () => {
-    setShowPaymentImage(true);
-  };
-
+  const [totalAmount, setTotalAmount] = useState(0);
+  if (paymentSuccess) {
+    return (
+      <div className="register-container">
+        <div className="register-card">
+          <h1 className="register-title">Registration</h1>
+          <h2>Payment Successful!</h2>
+          <ul>
+            {Object.entries(registeredDetails).map(([key, value]) => (
+              <li key={key}>
+                <strong>{key}:</strong>{" "}
+                {Array.isArray(value) ? value.join(", ") : String(value)}
+              </li>
+            ))}
+          </ul>
+          <button onClick={() => setPaymentSucces(!paymentSuccess)}>Register more</button>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="register-container">
       <div className="register-card">
@@ -143,46 +359,14 @@ const Register = () => {
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="collegeName">College Name:</label>
-              <select
+              <input
+                type="text"
                 id="collegeName"
                 name="collegeName"
                 value={formData.collegeName}
                 onChange={handleInputChange}
                 required
-              >
-                <option value="sample " >select colleges</option>
-                
-                <option value="A1">AIMIT - ST ALOYSIUS INSTITUE OF MANAGEMENT AND IT</option>
-    <option value="A2">ALVA'S DEGREE COLLEGE (UG)</option>
-    <option value="A3">BESANT COLLEGE MANGALORE</option>
-    <option value="A4">CANARA COLLEGE BALLALBAGH</option>
-    <option value="A5">MAHATHMA GANDHI MEMORIAL (MGM) COLLEGE UDUPI</option>
-    <option value="A6">MANGALORE INSTITUTE OF TECHNOLOGY, MOODBIDRI</option>
-    <option value="A7">MAPS COLLEGE(BUNTS HOSTEL)</option>
-    <option value="A8">NEHRU MEMORIAL COLLEGE, SULLIA</option>
-    <option value="A9">NITTE MAHALINGA ADYANTAYA MEMORIAL INSTITUTION(NITTE)</option>
-    <option value="A10">PADUA COLLEGE(MANGALORE)</option>
-    <option value="A11">POORNAPRAJNA COLLEGE (AUTONOMOUS) UDUPI</option>
-    <option value="A12">SACRED HEART COLLEGE MADANTHYAR</option>
-    <option value="A13">SDM UG BALLALBAGH</option>
-    <option value="A14">SRI BHUVANENDRA COLLEGE KARKALLA</option>
-    <option value="A15">SRI DHAVALA COLLEGE MOODBIDRI</option>
-    <option value="A16">SRI RAMAKRISHNA COLLEGE MANGALORE</option>
-    <option value="A17">SRINIVAS INSTITUTE OF TECHNOLOGY (S.I.T) VALACHIL</option>
-    <option value="A18">SRINIVAS UNIVERSITY PANDESHWAR</option>
-    <option value="A19">ST JOSEPH COLLEGE VAMANJOOR</option>
-    <option value="A20">ST PHILOMENA COLLEGE (AUTONOMOUS), PUTTUR</option>
-    <option value="A21">ST. AGNES COLLEGE(AUTONOMOUS) MANGALORE</option>
-    <option value="A22">ST. AGNES COLLEGE(AUTONOMOUS)(MANGALORE)</option>
-    <option value="A23">UNIVERSITY COLLEGE, MANGALORE</option>
-    <option value="A24">VIVEKANANDA COLLEGE OF ENGINEERING & TECHNOLOGY, PUTTUR</option>
-    <option value="A25">VIVEKANANDA DEGREE COLLEGE PUTTUR</option>
-    <option value="A26">YENEPOYA (DEEMED TO BE UNIVERSITY) MANGALORE</option>
-    
-
-
-                <option value="Others">Others</option>
-              </select>
+              />
               {errors.collegeName && <span className="error">{errors.collegeName}</span>}
             </div>
             <div className="form-group">
@@ -194,22 +378,20 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Show text input for "Others" college name */}
-          {formData.collegeName === 'Others' && (
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="otherCollegeName">Enter College Name:</label>
-                <input
-                  type="text"
-                  id="otherCollegeName"
-                  name="otherCollegeName"
-                  value={formData.otherCollegeName}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="semester">Semester:</label>
+              <input
+                type="text"
+                id="semester"
+                name="semester"
+                value={formData.semester}
+                onChange={handleInputChange}
+                required
+              />
+              {errors.semester && <span className="error">{errors.semester}</span>}
             </div>
-          )}
+          </div>
 
           {/* Events Section */}
           <h2>Events</h2>
@@ -328,24 +510,16 @@ const Register = () => {
             ))}
           </div>
 
-          {/* Transaction ID */}
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="transactionId">Transaction ID:</label>
-              <input
-                type="text"
-                id="transactionId"
-                name="transactionId"
-                value={formData.transactionId}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
+
+
+          {/* Total Amount */}
+          <div className="total-amount">
+            <strong>Total Amount: ₹{totalAmount / 100}</strong>
           </div>
 
           {/* Pay Button */}
-          <button type="button" className="pay-button" onClick={handlePayButtonClick}>
-            Pay
+          <button type="button" className="pay-button" onClick={paymentHandler}>
+            Pay & Submit
           </button>
 
           {/* Payment Image */}
@@ -360,10 +534,7 @@ const Register = () => {
             <p>If any query, call: 65879585</p>
           </div>
 
-          {/* Submit Button */}
-          <button type="submit" className="submit-button">
-            Submit
-          </button>
+
         </form>
       </div>
     </div>
