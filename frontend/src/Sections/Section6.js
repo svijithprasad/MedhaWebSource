@@ -39,8 +39,8 @@ const Section1 = () => {
           }}
         >
           <h3 style={{ fontSize: "1.5rem", color: "#01f9c6" }}>Contact</h3>
-          <p style={{color:'white'}}>SDIT</p>
-          <p style={{color:'white'}}> Airport Road, Kenjar,</p>
+          <p style={{color:'white'}}>Shree Devi Institute Of Technology</p>
+          <p style={{color:'white'}}>Airport Road, Kenjar,</p>
           <p style={{color:'white'}}>Mangaluru - 575003,</p>
           <p style={{color:'white'}}>Dakshina Kannada District, Karnataka</p>
           <p style={{color:'white'}}>+91 6361600211</p>
@@ -59,27 +59,23 @@ const Section1 = () => {
           <h3 style={{ fontSize: "1.5rem", color: "#01f9c6" }}>Quick Links</h3>
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             <li style={{ margin: "10px 0" }}>
-              <a href="#" style={{ textDecoration: "none", color: "white" }}>
+              <a href="/" style={{ textDecoration: "none", color: "white" }}>
                 Home
               </a>
             </li>
             <li style={{ margin: "10px 0" }}>
-              <a href="#" style={{ textDecoration: "none", color: "white" }}>
+              <a href="#about-section" style={{ textDecoration: "none", color: "white" }}>
                 About
               </a>
             </li>
             <li style={{ margin: "10px 0" }}>
-              <a href="#" style={{ textDecoration: "none", color: "white" }}>
+              <a href="#event-section" style={{ textDecoration: "none", color: "white" }}>
                 Events
               </a>
             </li>
+            
             <li style={{ margin: "10px 0" }}>
-              <a href="#" style={{ textDecoration: "none", color: "white" }}>
-                Rules
-              </a>
-            </li>
-            <li style={{ margin: "10px 0" }}>
-              <a href="#" style={{ textDecoration: "none", color: "white" }}>
+              <a href="/pdf/Brochure.pdf" download style={{ textDecoration: "none", color: "white" }}>
                 Download Brochure
               </a>
             </li>
@@ -123,22 +119,9 @@ const Section1 = () => {
           zIndex: "10",        // Ensuring the icons are above other content
         }}
       >
-        <a href="#" style={{ color: "white", fontSize: "1.5rem" }}>
-          <i className="fa fa-home"></i>
-        </a>
-        <a href="#" style={{ color: "white", fontSize: "1.5rem" }}>
-          <i className="fa fa-facebook"></i>
-        </a>
-        <a href="#" style={{ color: "white", fontSize: "1.5rem" }}>
-          <i className="fa fa-instagram"></i>
-        </a>
-        <a href="#" style={{ color: "white", fontSize: "1.5rem" }}>
-          <i className="fa fa-linkedin"></i>
-        </a>
-        <a href="#" style={{ color: "white", fontSize: "1.5rem" }}>
-          <i className="fa fa-youtube"></i>
-        </a>
-      </div>
+        
+        
+         </div>
     </section>
   );
 };

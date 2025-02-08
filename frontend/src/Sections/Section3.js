@@ -1,14 +1,160 @@
-
 import React, { useEffect, useState } from "react";
 import "font-awesome/css/font-awesome.min.css";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 const Section3 = () => {
   const cardsData = [
-    // ... (your cardsData array remains the same)
-     { id: 1, title: "Event 1", image: "/images/quizz.png", button: "Learn More", marginTop: "50px", marginLeft: "870px", content: "This is content for Event 1", titlePosition: { top: "20px", left: "10px" }, coordinators: [ { name: "John Doe", number: "123-456-7890" }, { name: "Jane Smith", number: "987-654-3210" }, ], }, { id: 2, title: "Event 2", image: "/images/webd.png", button: "Learn More", marginTop: "50px", marginLeft: "370px", content: "This is content for Event 2", titlePosition: { top: "20px", left: "10px" }, coordinators: [ { name: "Alice Johnson", number: "555-555-5555" }, { name: "Bob Brown", number: "444-444-4444" }, ], }, { id: 3, title: "Event 3", image: "/images/baymancode.png", button: "Learn More", marginTop: "400px", marginLeft: "620px", content: "This is content for Event 3", titlePosition: { top: "10px", left: "10px" }, coordinators: [ { name: "Charlie Davis", number: "333-333-3333" }, { name: "Diana Evans", number: "222-222-2222" }, ], }, { id: 4, title: "Event 4", image: "/images/reels.png", button: "Learn More", marginTop: "400px", marginLeft: "170px", content: "This is content for Event 4", titlePosition: { top: "10px", left: "10px" }, coordinators: [ { name: "Ethan Green", number: "111-111-1111" }, { name: "Fiona Harris", number: "999-999-9999" }, ], }, { id: 5, title: "Event 5", image: "/images/productL.png", button: "Learn More", marginTop: "400px", marginLeft: "1070px", content: "This is content for Event 5", titlePosition: { top: "30px", left: "10px" }, coordinators: [ { name: "George King", number: "888-888-8888" }, { name: "Hannah Lee", number: "777-777-7777" }, ], }, { id: 6, title: "Event 6", image: "/images/itmanager1.png", button: "Learn More", marginTop: "745px", marginLeft: "370px", content: "This is content for Event 6", titlePosition: { top: "20px", left: "10px" }, coordinators: [ { name: "Ian Moore", number: "666-666-6666" }, { name: "Jessica Nelson", number: "555-555-5555" }, ], }, { id: 7, title: "Event 7", image: "/images/gaming.png", button: "Learn More", marginTop: "745px", marginLeft: "870px", content: "This is content for Event 7", titlePosition: { top: "20px", left: "10px" }, coordinators: [ { name: "Kevin Parker", number: "444-444-4444" }, { name: "Laura Quinn", number: "333-333-3333" }, ], }, ];
+    {
+      id: 1,
+      title: "Flash Quiz: Speed of Innovation",
+      image: "/images/quizz.png",
+      button: "Learn More",
+      marginTop: "50px",
+      marginLeft: "870px",
+      content: "IT Quiz",
+      titlePosition: { top: "20px", left: "10px" },
+      coordinators: [
+        { name: "Prakyath", number: "8088639012" },
+        { name: "Riyona", number: "8431350418" },
+      ],
+      rules: `
+     1. Number of participants :2.\n
+     2. The round will consist of multiple-choice questions (MCQs), true/false statements.\n
+     3. Participants will tick their answers on a provided sheet.\n
+     4. Participants will not be allowed to discuss answers with other teams.\n
+     5. Once the time is up, no more answers will be accepted. All answer sheets must be submitted immediately.
+  `,
+    },
+    {
+      id: 2,
+      title: "Spidy-Weaving the web of logic",
+      image: "/images/webd.png",
+      button: "Learn More",
+      marginTop: "50px",
+      marginLeft: "370px",
+      content: "Web Designing",
+      titlePosition: { top: "20px", left: "10px" },
+      coordinators: [
+        { name: "Adithya kumar", number: "6361600211" },
+        { name: "Dharani", number: "8762597523" },
+      ],
+      rules:
+       ` 1. Number of participants :2.\n
+         2.The Competition will use HTML, CSS, and JavaScript.\n Frameworks will be mentioned later if applicable.\n
+         3.Use of Electronics Devices such as Phones, Gadgets, smartwatches, \nand other electronic devices are not allowed during the competition.\n
+         4.Theme will be announced on spot`
+        ,
 
-  
+    },
+    {
+      id: 3,
+      title: "The code wars-infinity alogorithms",
+      image: "/images/baymancode.png",
+      button: "Learn More",
+      marginTop: "400px",
+      marginLeft: "620px",
+      content: "Coding",
+      fontFamily: "'AvengersFont', sans-serif",
+      titlePosition: { top: "10px", left: "10px" },
+      coordinators: [
+        { name: "Sachin", number: "6361428036" },
+        { name: "Ritish", number: "7829150482" },
+      ],
+      rules: ` 1. Number of participants :2.\n
+       2.Participants are allowed to use one of the following programming languages:C , C++ , Java.\n
+       3.Switching between tabs during the contest.\n
+        4.Using Google or any other search engine to find solutions or references.\n
+      5.Violation of these rules will result in immediate disqualification`
+
+    },
+    {
+      id: 4,
+      title: "Shazam! Moments: Unleash Your Creativity",
+      image: "/images/reels.png",
+      button: "Learn More",
+      marginTop: "400px",
+      marginLeft: "170px",
+      content: "Reels",
+      titlePosition: { top: "10px", left: "10px" },
+      coordinators: [
+        { name: "Dainik", number: "8618306639" },
+        { name: "Savin", number: "9902736870" },
+      ],
+      rules: `1. Number of participants :2
+2. Video must be original and taken within the SDIT campus.
+3. On the day of event , the theme will be provided
+4. Drones are not permitted
+5. It is forbidden to edit using AI websites and Software
+6. Participants should get their Gears, Laptops, etc.
+Capture the moment, Launch the reel…!`,
+
+    },
+    {
+      id: 5,
+      title: "Project stark: The Next Big Launch ",
+      image: "/images/productL.png",
+      button: "Learn More",
+      marginTop: "400px",
+      marginLeft: "1070px",
+      content: "Product Launch",
+      titlePosition: { top: "30px", left: "10px" },
+      coordinators: [
+        { name: "Gurudath", number: "9901526291" },
+        { name: "Mahalaxmi", number: "9526620803" },
+      ],
+      rules: `1.Number of partcipants :2 
+      2. Participants should not disclose their college name during their Presentation
+3. No Offensive or inappropriate content is allowed in the product
+
+4. Plagiarism in any form will lead to disqualification
+
+5. Judges decision will be final and binding
+6. The participants should bring their own laptops and phones
+`,
+
+    },
+    {
+      id: 6,
+      title: "The Man of Steel-The Raise Of Leader ",
+      image: "/images/itmanager1.png",
+      button: "Learn More",
+      marginTop: "745px",
+      marginLeft: "370px",
+      content: "IT Manager",
+      titlePosition: { top: "20px", left: "10px" },
+      coordinators: [
+        { name: "Sunil", number: "8197376168" },
+        { name: "Pranamya", number: "9481212107" },
+      ],
+      rules: `1. Number of participants : 1
+      2.No calculators or external aids allowed.
+      3. Answer all questions within the allotted time.
+    4. Candidates with the highest scores proceed to the next round.
+    5.Participant must come in a formal attire.`,
+
+    },
+    {
+      id: 7,
+      title: "Battle For The Muliverse",
+      image: "/images/gaming.png",
+      button: "Learn More",
+      marginTop: "745px",
+      marginLeft: "870px",
+      content: "Gaming",
+      titlePosition: { top: "20px", left: "10px" },
+      coordinators: [
+        { name: "Jabez", number: "9482833472" },
+        { name: "Sakibe", number: "9380340169" },
+      ],
+      rules: `1. Number of participants :4
+      2.Players must use their own mobile devices with BGMI installed. Emulators and third-party software are strictly prohibited.
+      3.Hacks, cheats, or exploits will result in the immediate disqualification of the entire team.
+      4.Unsportsmanlike behavior, offensive language, or toxic behavior will not be tolerated. Violators will be penalized or disqualified
+      5.	Teams must join the lobby on time as per the schedule. Late entries will not be entertained.`,
+
+    },
+    // ... (other card data remains the same)
+  ];
 
   const [isInView, setIsInView] = useState(Array(cardsData.length).fill(false));
   const [activePopup, setActivePopup] = useState(null);
@@ -48,7 +194,7 @@ const Section3 = () => {
 
   return (
     <section
-    id="event-section"
+      id="event-section"
       style={{
         backgroundImage: "url('/images/bgf.jpg')",
         color: "white",
@@ -105,8 +251,8 @@ const Section3 = () => {
             data-index={index}
             className="card"
             style={{
-              backgroundImage: `url(${card.image})`, // Fixed syntax
-              backgroundSize: "cover",
+              backgroundImage: `url(${card.image})`, // Corrected syntax  
+              backgroundSize:"cover",          
               backgroundPosition: "center",
               border: "5px solid grey",
               borderRadius: "10px",
@@ -162,13 +308,14 @@ const Section3 = () => {
                 position: "absolute",
                 top: card.titlePosition.top,
                 left: card.titlePosition.left,
-                fontSize: "1.2rem",
+                fontSize: "1.0rem",
                 color: "gold",
-                marginBottom: "10px",
                 fontFamily: "'DcFandom', sans-serif",
                 backgroundColor: "rgba(0, 0, 0, 0.6)",
                 padding: "5px 10px",
                 borderRadius: "5px",
+                top:"0px",
+                left:'0px',
               }}
             >
               {card.title}
@@ -202,84 +349,119 @@ const Section3 = () => {
 
       {/* Popup */}
       {activePopup && (
-        <div
+  <div
+    style={{
+      position: "fixed",
+      top: "0",
+      left: "0",
+      width: "100vw",
+      
+      height: "100vh",
+      backgroundColor: "rgba(0, 0, 0, 0.7)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: "1000",
+    }}
+    onClick={() => setActivePopup(null)}
+  >
+    <div
+      style={{
+        backgroundImage: "url(/images/bgf.jpg)",
+        padding: isMobile ? "10px" : "20px",
+        borderRadius: "10px",
+        width: isMobile ? "90%" : "70%",
+        height: isMobile ? "80%" : "70%",
+        color: "white",
+        maxHeight: "90vh",
+        overflow: "auto",
+        position: "relative",
+      }}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <div
+        style={{
+          position: "absolute",
+          top: "10px",
+          right: "10px",
+          fontSize: isMobile ? "20px" : "30px",
+          cursor: "pointer",
+          color: "white",
+        }}
+        onClick={() => setActivePopup(null)}
+      >
+        &times;
+      </div>
+
+      <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <h2
           style={{
-            position: "fixed",
-            top: "0",
-            left: "0",
-            width: "100vw",
-            height: "100vh",
-            backgroundColor: "rgba(0, 0, 0, 0.7)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: "1000",
+            marginBottom: "10px",
+            color: "white",
+            fontFamily: "'AvengersFont', sans-serif",
+            fontSize: isMobile ? "24px" : "40px",
+            wordSpacing: "7px",
+            letterSpacing: "2.5px",
           }}
-          onClick={() => setActivePopup(null)}
         >
-          <div
-            style={{
-              backgroundColor: "rgba(255, 255, 255, 0.9)",
-              padding: "20px",
-              borderRadius: "10px",
-              width: isMobile ? "90%" : "70%",
-              height: isMobile ? "80%" : "70%",
-              color: "black",
-              maxHeight: "90vh",
-              overflow: "auto",
-              position: "relative",
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div
-              style={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                fontSize: "30px",
-                cursor: "pointer",
-                color: "black",
-              }}
-              onClick={() => setActivePopup(null)}
-            >
-              &times;
-            </div>
+          {cardsData.find((card) => card.id === activePopup).title}
+        </h2>
+        <p style={{ color: "white", fontSize: isMobile ? "14px" : "16px" }}>
+          {cardsData.find((card) => card.id === activePopup).content}
+        </p>
+        <h3 style={{ color: "white", fontSize: isMobile ? "18px" : "24px" }}>
+          Rules:
+        </h3>
+        <p
+          style={{
+            whiteSpace: "pre-line",
+            fontWeight: "bold",
+            fontStyle: "italic",
+            color: "white",
+            textAlign: "start",
+            fontSize: isMobile ? "12px" : "14px",
+            padding: isMobile ? "0 10px" : "0 20px",
+          }}
+        >
+          {cardsData.find((card) => card.id === activePopup).rules}
+        </p>
+      </div>
 
-            {!isMobile && (
-              <>
-                
-               
-              </>
-            )}
-            <div style={{ textAlign: "center", marginTop: "20px" }}>
-              <h2 style={{ marginBottom: "10px" }}>
-                {cardsData.find((card) => card.id === activePopup).title}
-              </h2>
-              <p>{cardsData.find((card) => card.id === activePopup).content}</p>
+      <div
+        style={{
+          position: "absolute",
+          bottom: "20px",
+          width: "100%",
+          textAlign: "center",
+        }}
+      >
+        <h3
+          style={{
+            color: "white",
+            marginTop: "0px",
+            fontSize: isMobile ? "18px" : "24px",
+          }}
+        >
+          Event Coordinators:
+        </h3>
+        {cardsData
+          .find((card) => card.id === activePopup)
+          .coordinators.map((coordinator, index) => (
+            <div key={index}>
+              <p
+                style={{
+                  color: "white",
+                  fontSize: isMobile ? "12px" : "14px",
+                }}
+              >
+                {coordinator.name} - {coordinator.number}
+              </p>
             </div>
-
-            <div
-              style={{
-                position: "absolute",
-                bottom: "20px",
-                width: "100%",
-                textAlign: "center",
-              }}
-            >
-              <h3>Event Coordinators:</h3>
-              {cardsData
-                .find((card) => card.id === activePopup)
-                .coordinators.map((coordinator, index) => (
-                  <div key={index}>
-                    <p>
-                      {coordinator.name} - {coordinator.number}
-                    </p>
-                  </div>
-                ))}
-            </div>
-          </div>
-        </div>
-      )}
+          ))}
+      </div>
+    </div>
+  </div>
+)}
 
       {/* Updated "Click here for cultural Events" button */}
       <div
@@ -312,7 +494,7 @@ const Section3 = () => {
             backgroundSize: "cover",
             backgroundPosition: "center",
             borderRadius: "10px",
-            border:"5px solid purple",
+            border: "5px solid purple",
             padding: "20px",
             boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
             transition: "transform 0.3s ease, box-shadow 0.3s ease",

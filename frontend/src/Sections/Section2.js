@@ -99,7 +99,7 @@ const Section2 = () => {
           /* Media Queries for Responsiveness */
           @media (max-width: 768px) {
             .superman-container img {
-              width: 150px !important; /* Reduce Superman image size */
+              width: 60px !important; /* Reduce Superman image size */
               height: auto;
             }
             .superman-container {
@@ -108,7 +108,7 @@ const Section2 = () => {
             }
             /* Left Image */
             div[style*="left: 1%"] img {
-              width: 150px !important; /* Reduce left image size */
+              width: 60px !important; /* Reduce left image size */
               height: auto;
             }
             /* Adjust text size and positioning for smaller screens */
@@ -123,10 +123,25 @@ const Section2 = () => {
               width: 90% !important;
               height: 80% !important;
             }
+            /* Change flex-direction to column for mobile view */
+            #about-section {
+              flex-direction: column;
+            }
+            /* Adjust video and content sections for mobile view */
+            #about-section > div {
+              flex: none;
+              width: 100%;
+              height: 50vh; /* Adjust height as needed */
+            }
+            /* Adjust the content section to appear below the video */
+            #about-section > div:last-child {
+              height: auto;
+              padding: 20px;
+            }
           }
           @media (max-width: 480px) {
             .superman-container img {
-              width: 150px !important; /* Further reduce Superman image size */
+              width: 100px !important; /* Further reduce Superman image size */
             }
             div[style*="left: 1%"] img {
               width: 150px !important; /* Further reduce left image size */
@@ -137,183 +152,252 @@ const Section2 = () => {
             p {
               font-size: 0.9rem !important;
             }
+
+            
           }
+
+
         `}
       </style>
-      <section
-        id="about-section"
+      <style>
+  {`
+    @media (max-width: 768px) {
+      .superman-container img {
+        width: 60px !important; /* Reduce Superman image size */
+        height: auto;
+      }
+      .superman-container {
+        right: 1%; /* Adjust position for smaller screens */
+        bottom: 10%;
+      }
+      /* Left Image */
+      div[style*="left: 10%"] img {
+        width: 60px !important; /* Reduce left image size */
+        height: auto;
+      }
+      /* Adjust text size and positioning for smaller screens */
+      h1 {
+        font-size: 40px !important;
+      }
+      p {
+        font-size: 1rem !important;
+      }
+      /* Adjust the main container for smaller screens */
+      div[style*="width: 70%"] {
+        width: 90% !important;
+        height: 80% !important;
+      }
+      /* Change flex-direction to column for mobile view */
+      #about-section {
+        flex-direction: column;
+      }
+      /* Adjust video and content sections for mobile view */
+      #about-section > div {
+        flex: none;
+        width: 100%;
+        height: 50vh; /* Adjust height as needed */
+      }
+      /* Adjust the content section to appear below the video */
+      #about-section > div:last-child {
+        height: auto;
+        padding: 20px;
+      }
+    }
+    @media (max-width: 480px) {
+      .superman-container img {
+        width: 100px !important; /* Further reduce Superman image size */
+      }
+      div[style*="left: 10%"] img {
+        width: 100px !important; /* Further reduce left image size */
+      }
+      h1 {
+        font-size: 30px !important;
+      }
+      p {
+        font-size: 0.9rem !important;
+      }
+    }
+  `}
+</style>
+<section
+  id="about-section"
+  style={{
+    position: "relative",
+    backgroundImage: "url('/images/bgf.jpg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    height: "100vh",
+    width: "100vw",
+    color: "white",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "stretch",
+  }}
+>
+  {/* Left Section - Full Video */}
+  <div
+    style={{
+      flex: 1.1, // Left section takes up 1 part of the available space
+      position: "relative",
+      overflow: "hidden",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  >
+    <video
+      ref={videoRef}
+      autoPlay
+      muted
+      loop
+      controls={false}
+      onClick={handleVideoClick}
+      onPause={handleVideoPause}
+      style={{
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+      }}
+    >
+      <source src="/videos/dj1.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  {/* Right Section - Existing Content */}
+  <div
+    style={{
+      flex: 1.9, // Right section takes up 2 parts of the available space (increased width)
+      position: "relative",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      padding: "0px",
+    }}
+  >
+    {/* Cosmic Animated Background */}
+    <div className="cosmic-background"></div>
+    {/* Arc Reactor Glow Effect */}
+    <div className="arc-reactor"></div>
+    {/* Background Blur */}
+    <div
+      style={{
+        position: "absolute",
+        top: "0",
+        left: "0",
+        right: "0",
+        bottom: "0",
+        backgroundImage: "url('/images/bgf.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        filter: "blur(3px)",
+        zIndex: 0,
+      }}
+    ></div>
+    {/* Image Layer with Reduced Opacity */}
+    <div
+      style={{
+        position: "relative",
+        width: "70%",
+        height: "70%",
+        borderRadius: "20px",
+        border: "10px solid transparent",
+        zIndex: 1,
+        overflow: "hidden",
+      }}
+    >
+      {/* Pseudo-element for the image with reduced opacity */}
+      <div
         style={{
-          position: "relative",
-          backgroundImage: "url('/images/bgf.jpg')", // Updated background image
+          position: "absolute",
+          top: "0",
+          left: "0",
+          width: "100%",
+          height: "100%",
+          backgroundImage: "url('/images/sec2.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          height: "100vh",
-          width: "100vw",
-          color: "white",
-          display: "flex", // Use Flexbox to divide into two vertical sections
-          justifyContent: "space-between", // Space out the two sections
-          alignItems: "stretch", // Stretch both sections vertically
+          opacity: 0.45,
+          zIndex: 1,
+        }}
+      ></div>
+      {/* Text Container (no opacity change) */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+          padding: "20px",
         }}
       >
-        {/* Left Section - Full Video */}
         <div
           style={{
-            flex: 1, // Take up half of the available width
-            position: "relative",
-            overflow: "hidden",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            maxWidth: "800px",
+            textAlign: "center",
+            color: "white",
           }}
         >
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            loop
-            controls={false} // Disable default controls
-            onClick={handleVideoClick} // Allow muting/unmuting on click
-            onPause={handleVideoPause} // Prevent pausing
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover", // Ensure the video covers the entire section
-            }}
-          >
-            <source src="/videos/dj1.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
-
-        {/* Right Section - Existing Content */}
-        <div
-          style={{
-            flex: 1, // Take up half of the available width
-            position: "relative",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "20px",
-          }}
-        >
-          {/* Cosmic Animated Background */}
-          <div className="cosmic-background"></div>
-          {/* Arc Reactor Glow Effect */}
-          <div className="arc-reactor"></div>
-          {/* Background Blur */}
-          <div
+          <h1
             style={{
               position: "absolute",
-              top: "0",
-              left: "0",
-              right: "0",
-              bottom: "0",
-              backgroundImage: "url('/images/bgf.jpg')", // Updated background image
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              filter: "blur(3px)",
-              zIndex: 0,
-            }}
-          ></div>
-          {/* Image Layer with Reduced Opacity */}
-          <div
-            style={{
-              position: "relative",
-              width: "70%",
-              height: "70%",
-              borderRadius: "20px",
-              border: "10px solid transparent",
-              zIndex: 1,
-              overflow: "hidden", // Ensure the pseudo-element stays within the bounds
+              top: "10px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              color: "red",
+              fontWeight: "bold",
+              fontSize: "38px",
+              fontFamily: "'AvengersFont', sans-serif",
+              textTransform: "uppercase",
             }}
           >
-            {/* Pseudo-element for the image with reduced opacity */}
-            <div
-              style={{
-                position: "absolute",
-                top: "0",
-                left: "0",
-                width: "100%",
-                height: "100%",
-                backgroundImage: "url('/images/sec2.jpg')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                opacity: 0.45, // Reduced opacity for the image only
-                zIndex: 1,
-              }}
-            ></div>
-            {/* Text Container (no opacity change) */}
-            <div
-              style={{
-                position: "relative",
-                zIndex: 2, // Ensure text is above the image
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100%",
-                padding: "20px",
-              }}
-            >
-              <div
-                style={{
-                  maxWidth: "800px",
-                  textAlign: "center",
-                  color: "white", // Text color remains white
-                }}
-              >
-                <h1
-                  style={{
-                    position: "absolute",
-                    top: "10px",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    color: "red", // Updated text color to white
-                    fontWeight: "bold",
-                    fontSize: "30px",
-                    fontFamily: "'AvengersFont', sans-serif", // Use the custom font here
-                    textTransform: "uppercase",
-                  }}
-                >
-                  &nbsp;About &nbsp;&nbsp; Medha
-                </h1>
-                <p
-                  style={{
-                    fontSize: "1.2rem",
-                    marginTop: "20px",
-                    color: "white",
-                  }}
-                >
-                  Medha is a platform dedicated to empowering students and professionals through skill development and career guidance. Our mission is to bridge the gap between education and employment.
-                </p>
-              </div>
-            </div>
-          </div>
-          {/* Left Image */}
-          <div
+            &nbsp;About &nbsp;&nbsp; Medha
+          </h1>
+          <p
             style={{
-              position: "absolute",
-              left: "10%",
-              top: "1%",
-              zIndex: 2,
+              fontSize: "1.2rem",
+              marginTop: "20px",
+              color: "white",
             }}
-          >
-            <img
-              src="/images/capa.png"
-              alt="Left Image"
-              style={{ width: "150px", height: "auto" }}
-            />
-          </div>
-          {/* Right Image - Superman with Flying Effect */}
-          <div className="superman-container">
-            <img
-              src="/images/superman.png"
-              alt="Right Image"
-              style={{ width: "150px", height: "auto", borderRadius: "10px" }}
-            />
-          </div>
+          >The dynamic minds of the MCA department at Shree Devi Institute of
+          Technology proudly present MEDHA 2k25—a fest like no other, blending
+          technology and creativity into an extraordinary experience. A grand
+          spectacle like no other, where the tides of innovation and creativity
+          converge in a breathtaking fusion of technology and artistry. Choose your
+          passion, set a road map and achieve the success. MEDHA 2k25 is where you
+          unleash your true potential!
+          </p>
         </div>
-      </section>
+      </div>
+    </div>
+    {/* Left Image */}
+    <div
+      style={{
+        position: "absolute",
+        left: "10%",
+        top: "1%",
+        zIndex: 2,
+      }}
+    >
+      <img
+        src="/images/capa.png"
+        alt="Left Image"
+        style={{ width: "150px", height: "auto" }}
+      />
+    </div>
+    {/* Right Image - Superman with Flying Effect */}
+    <div className="superman-container">
+      <img
+        src="/images/superman.png"
+        alt="Right Image"
+        style={{ width: "150px", height: "auto", borderRadius: "10px" }}
+      />
+    </div>
+  </div>
+</section>
     </>
   );
 };

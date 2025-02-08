@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './SliderDemo.css'; // Import the CSS file
 
 const SliderDemo = () => {
   const [active, setActive] = useState(0);
+  const videoRef = useRef(null); // Ref for the video element
 
   const items = [
     {
@@ -14,8 +15,17 @@ const SliderDemo = () => {
       id: 3,
       backgroundImage: "url('./images/g.jpg')",
       content: (
-        <video width="100%" height="100%" controls>
-          <source src="video2.mp4" type="video/mp4" />
+        <video
+          ref={videoRef}
+          width="100%"
+          height="100%"
+          autoPlay
+          loop
+          muted
+          style={{ objectFit: 'cover' }}
+          onClick={() => (videoRef.current.muted = !videoRef.current.muted)}
+        >
+          <source src="./videos/glimse.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       ),
@@ -73,6 +83,11 @@ const SliderDemo = () => {
           element.style.zIndex = 1;
           element.style.filter = 'none';
           element.style.opacity = 1;
+
+          // Play the video if it's the active slide
+          if (item.id === 3 && videoRef.current) {
+            videoRef.current.play();
+          }
         } else {
           const stt = Math.abs(active - index);
           const translateX = 200 * stt;
@@ -82,6 +97,11 @@ const SliderDemo = () => {
           element.style.zIndex = -stt;
           element.style.filter = 'blur(5px)';
           element.style.opacity = stt > 2 ? 0 : 0.6;
+
+          // Pause the video if it's not the active slide
+          if (item.id === 3 && videoRef.current) {
+            videoRef.current.pause();
+          }
         }
       }
     });
@@ -114,14 +134,21 @@ const SliderDemo = () => {
       }}
     >
       {/* Title Section */}
-      <h1 style={{ 
-        color: 'white', 
-        fontSize: '3rem', 
-        textAlign: 'center', 
-        marginBottom: '20px', 
-        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' 
-      }}>
-        Glimpse of Medha
+      <h1
+        style={{
+          color: 'white',
+          fontSize: '3rem',
+          textAlign: 'center',
+          marginBottom: '20px',
+          textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+          fontWeight: 'bold',
+          fontSize: '55px',
+          fontFamily: "'AvengersFont', sans-serif",
+          textTransform: 'uppercase',
+          color: 'red',
+        }}
+      >
+        Glimpse &nbsp; of &nbsp; Medha
       </h1>
 
       {/* Slider Section */}
