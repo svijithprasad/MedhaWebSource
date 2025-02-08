@@ -3,10 +3,24 @@ import Razorpay from "razorpay";
 import cors from "cors";
 import crypto from "crypto";
 import dotenv from "dotenv";
+import registerUserToDB from "./controllers/userController.js";
+import mongoose from "mongoose";
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
+
+
+const mongoUrl = "mongodb://localhost:27017/Registration";
+
+mongoose
+  .connect(mongoUrl, {
+    useNewUrlParser: true,
+  })
+  .then(() => {
+    console.log("Connected to database");
+  })
+  .catch((e) => console.log(e));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -51,6 +65,8 @@ app.post("/order/validate", async (req, res) => {
     paymentId: razorpay_payment_id,
   });
 });
+
+app.post("/register", registerUserToDB );
 
 app.listen(5088, () => {
   console.log("Listening on port", PORT);
