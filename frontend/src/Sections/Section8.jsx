@@ -4,7 +4,6 @@ import './SliderDemo.css'; // Import the CSS file
 const SliderDemo = () => {
   const [active, setActive] = useState(0);
   const videoRef = useRef(null); // Ref for the video element
-
   const items = [
     {
       id: 2,
@@ -15,19 +14,30 @@ const SliderDemo = () => {
       id: 3,
       backgroundImage: "url('./images/g.jpg')",
       content: (
-        <video
-          ref={videoRef}
-          width="100%"
-          height="100%"
-          autoPlay
-          loop
-          muted
-          style={{ objectFit: 'cover' }}
-          onClick={() => (videoRef.current.muted = !videoRef.current.muted)}
-        >
-          <source src="./videos/glimse.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
+          <video
+            ref={videoRef}
+            width="100%"
+            height="100%"
+            autoPlay
+            loop
+            muted
+            playsInline // Prevents full-screen on mobile devices
+            disablePictureInPicture // Disables picture-in-picture mode
+            style={{ 
+              objectFit: 'cover', 
+              position: 'absolute', 
+              top: 0, 
+              left: 0, 
+              width: '100%', 
+              height: '100%' 
+            }}
+            onClick={() => (videoRef.current.muted = !videoRef.current.muted)}
+          >
+            <source src="./videos/glimse.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
       ),
     },
     {
@@ -146,9 +156,11 @@ const SliderDemo = () => {
           fontFamily: "'AvengersFont', sans-serif",
           textTransform: 'uppercase',
           color: 'red',
+          wordSpacing: "7px",
+          letterSpacing: "2.5px",
         }}
       >
-        Glimpse &nbsp; of &nbsp; Medha
+        Glimpse  of  Medha
       </h1>
 
       {/* Slider Section */}

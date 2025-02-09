@@ -25,7 +25,7 @@ export const Navbar = () => {
           <img src="./images/logo.png" alt="Medha Logo" /> {/* Logo */}
           
         </Link>
-        <span className="logo-text">Shree Devi Institute Of Technology</span> {/* Name/Title */}
+        <span className="logo-text">Shree Devi Institute of Technology</span> {/* Name/Title */}
 
         {/* Desktop Menu */}
         <div className="menu">

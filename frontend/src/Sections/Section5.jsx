@@ -94,7 +94,9 @@ const Section5 = () => {
             fontSize: "55px",
             fontFamily: "'AvengersFont', sans-serif", // Use the custom font here
             textTransform: "uppercase",
-          }}>MEDHA &nbsp;TEAM </h1>
+            wordSpacing: "7px",
+            letterSpacing: "2.5px",
+          }}>MEDHA TEAM </h1>
         </div>
 
         {/* Main Content Section */}

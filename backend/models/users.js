@@ -19,7 +19,6 @@ const RegistrationSchema = new mongoose.Schema({
   },
   semester: {
     type: String,
-    required: true,
   },
   transactionId: {
     type: String,

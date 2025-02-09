@@ -18,7 +18,8 @@ const FlipBook = () => {
       {/* Audio element for the flip sound */}
       <audio ref={audioRef} src="/sounds/page-flip.mp3" preload="auto"></audio>
 
-      <h1 style={{ textAlign: 'center', color: '#fff', marginBottom: '-100px', marginTop: '20px', fontFamily: "'AvengersFont', sans-serif", textTransform: "uppercase", color: "red", fontWeight: "bold", fontSize: "55px" }}>E &nbsp;-&nbsp;brochure</h1>
+      <h1 style={{ textAlign: 'center', color: '#fff', marginBottom: '-100px', marginTop: '20px', fontFamily: "'AvengersFont', sans-serif", textTransform: "uppercase", color: "red", fontWeight: "bold",   wordSpacing: "7px",
+            letterSpacing: "2.5px",fontSize: "55px" }}>E-brochure</h1>
 
       {/* Flipbook Container */}
       <div className="flipbook-container">
@@ -26,11 +27,10 @@ const FlipBook = () => {
           {/* Pages go here as per your existing code */}
           {/* Page 1 */}
           <div className="page" style={{ '--i': 0 }}>
-            <div className="front" style={{ backgroundImage: "url('/images/g2.jpg')" }} onClick={() => handlePageFlip(1)}>
-              <h1>Medha</h1>
-              <h3>2025.<br />Marvel vs DC</h3>
+            <div className="front" style={{ backgroundImage: "url('/images/b1.jpg')" }} onClick={() => handlePageFlip(1)}>
+              
             </div>
-            <div className="back" style={{ backgroundImage: "url('/images/g12.jpg')" }} onClick={() => handlePageFlip(0)}>
+            <div className="back" style={{ backgroundImage: "url('/images/b2.jpg')" }} onClick={() => handlePageFlip(0)}>
               <h2></h2>
             </div>
           </div>
@@ -39,17 +39,17 @@ const FlipBook = () => {
           <div className="page" style={{ '--i': 1 }}>
             <div 
               className="front" 
-              style={{ backgroundImage: "url('/images/baymancode.png')" }} 
+              style={{ backgroundImage: "url('/images/b3.jpg')" }} 
               onClick={() => handlePageFlip(2)}
             >
-              <p>2.</p>
+            
             </div>
             <div 
               className="back" 
-              style={{ backgroundImage: "url('/images/g4.jpg')" }} 
+              style={{ backgroundImage: "url('/images/b4.jpg)" }} 
               onClick={() => handlePageFlip(1)}
             >
-              <p>3.</p>
+             
             </div>
           </div>
 
@@ -57,18 +57,17 @@ const FlipBook = () => {
           <div className="page" style={{ '--i': 2 }}>
             <div 
               className="front" 
-              style={{ backgroundImage: "url('/images/ironman2.png')" }} 
+              style={{ backgroundImage: "url('/images/b5.jpg')" }} 
               onClick={() => handlePageFlip(3)}
             >
-              <h2></h2>
-              <p>4.</p>
+             
+              
             </div>
             <div 
               className="back" 
-              style={{ backgroundImage: "url('/images/itmanager1.png')" }} 
+              style={{ backgroundImage: "url('/images/b6.jpg')" }} 
               onClick={() => handlePageFlip(2)}
             >
-              <p>5. </p>
             </div>
           </div>
 
@@ -76,18 +75,15 @@ const FlipBook = () => {
           <div className="page" style={{ '--i': 3 }}>
             <div 
               className="front" 
-              style={{ backgroundImage: "url('/images/bg5.png')" }} 
+              style={{ backgroundImage: "url('/images/b7.jpg')" }} 
               onClick={() => handlePageFlip(4)}
             >
-              <h2></h2>
-              <p>6.</p>
             </div>
             <div 
               className="back" 
-              style={{ backgroundImage: "url('/images/g12.jpg')" }} 
+              style={{ backgroundImage: "url('/images/b8.jpg')" }} 
               onClick={() => handlePageFlip(3)}
             >
-              <p>7. </p>
             </div>
           </div>
 
@@ -95,18 +91,15 @@ const FlipBook = () => {
           <div className="page" style={{ '--i': 4 }}>
             <div 
               className="front" 
-              style={{ backgroundImage: "url('/images/g11.jpg')" }} 
+              style={{ backgroundImage: "url('/images/b9.jpg')" }} 
               onClick={() => handlePageFlip(5)}
             >
-              <h2></h2>
-              <p>8.</p>
             </div>
             <div 
               className="back" 
-              style={{ backgroundImage: "url('/images/g10.jpg')" }} 
+              style={{ backgroundImage: "url('/images/b10.jpg')" }} 
               onClick={() => handlePageFlip(4)}
             >
-              <p>9. </p>
             </div>
           </div>
 
@@ -114,18 +107,15 @@ const FlipBook = () => {
           <div className="page" style={{ '--i': 5 }}>
             <div 
               className="front" 
-              style={{ backgroundImage: "url('/images/g9.jpg')" }} 
+              style={{ backgroundImage: "url('/images/b11.jpg')" }} 
               onClick={() => handlePageFlip(6)}
             >
-              <h2></h2>
-              <p>10.</p>
             </div>
             <div 
               className="back" 
-              style={{ backgroundImage: "url('/images/g8.jpg')" }} 
+              style={{ backgroundImage: "url('/images/b12.jpg')" }} 
               onClick={() => handlePageFlip(5)}
             >
-              <p>11. </p>
             </div>
           </div>
 
@@ -133,18 +123,15 @@ const FlipBook = () => {
           <div className="page" style={{ '--i': 6 }}>
             <div 
               className="front" 
-              style={{ backgroundImage: "url('/images/g7.jpg')" }} 
+              style={{ backgroundImage: "url('/images/b13.jpg')" }} 
               onClick={() => handlePageFlip(7)}
             >
-              <h2></h2>
-              <p>12.</p>
             </div>
             <div 
               className="back" 
-              style={{ backgroundImage: "url('/images/g6.jpg')" }} 
+              style={{ backgroundImage: "url('/images/bg5.png')" }} 
               onClick={() => handlePageFlip(6)}
             >
-              <p>13. </p>
             </div>
           </div>
         </div>
@@ -162,6 +149,7 @@ const FlipBook = () => {
               alignItems: 'center',
               marginTop:'-50px',
               marginBottom:'50px',
+              
                gap: '10px' }}>
           <span>Download E-Brochure</span>
           <span style={{ fontSize: '20px' }}></span> {/* Download icon */}
