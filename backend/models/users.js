@@ -5,7 +5,7 @@ const RegistrationSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   collegeName: { type: String, required: true },
   course: { type: String, required: true },
-  transactionId: { type: String, required: true }, // Ensure it's stored
+  transactionId: { type: String, unique: true },
   events: { type: [String], required: true },
   eventDetails: { type: Object, required: true },
   totalAmount: { type: Number, required: true },
