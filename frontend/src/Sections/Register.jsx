@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Register.css';
+import axios from 'axios'
 
 const Register = () => {
   const [paymentSuccess, setPaymentSucces] = useState(false);
@@ -174,20 +175,6 @@ const Register = () => {
     const currency = "INR";
     const receiptId = "receiptId1";
 
-    const response = await fetch("http://localhost:5088/order", {
-      method: "POST",
-      body: JSON.stringify({
-        amount,
-        currency,
-        receipt: receiptId,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const order = await response.json();
-    console.log(order);
-
     const registrationData = {
       name: formData.name,
       phone: formData.phone,
@@ -203,82 +190,53 @@ const Register = () => {
       totalAmount: calculatedAmount / 100,
     };
 
+    try {
+      const { data: order } = await axios.post("http://localhost:5088/order", {
+        amount,
+        currency,
+        receipt: receiptId,
+      });
 
-    var options = {
-      key: "rzp_test_xjaCfVdnrPK2Q9", // Enter the Key ID generated from the Dashboard
-      amount, // Amount is in currency subunits. Default currency is INR. Hence, 50880 refers to 50880 paise
-      currency,
-      name: "Medha", //your business name
-      description: "Test Transaction",
-      image: "https://example.com/your_logo",
-      order_id: order.id, //This is a sample Order ID. Pass the id obtained in the response of Step 1
-      handler: async function (response) {
-        const body = {
-          ...response,
-        };
+      var options = {
+        key: "rzp_test_xjaCfVdnrPK2Q9",
+        amount,
+        currency,
+        name: "Medha",
+        description: "Test Transaction",
+        image: "https://example.com/your_logo",
+        order_id: order.id,
+        handler: async function (response) {
+          try {
+            const validateRes = await axios.post("http://localhost:5088/order/validate", response);
+            if (validateRes.data.msg === "success") {
+              setPaymentSucces(true);
+              setRegisteredDetails(registrationData);
+              console.log("Payment Successful", registrationData);
 
-        const validateRes = await fetch(
-          "http://localhost:5088/order/validate",
-          {
-            method: "POST",
-            body: JSON.stringify(body),
-            headers: {
-              "Content-Type": "application/json",
-            },
+              // Send registration data
+              await axios.post("http://localhost:5088/register", registrationData);
+            }
+          } catch (error) {
+            console.error("Payment validation error:", error);
           }
-        );
-        const jsonRes = await validateRes.json();
-        if (jsonRes.msg === 'success') {
-          setPaymentSucces(true);
-          setRegisteredDetails(registrationData);
-          console.log('Payment Successful', registrationData);
+        },
+        notes: { address: "Razorpay Corporate Office" },
+        theme: { color: "#3399cc" },
+      };
 
-          // Send registration data to the backend
-          const registerRes = await fetch("http://localhost:5088/register", {
-            method: "POST",
-            body: JSON.stringify(registrationData),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-        }
-        console.log(jsonRes);
-      },
-      prefill: {
-        //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
-        name: "Web Dev Matrix", //your customer's name
-        email: "webdevmatrix@example.com",
-        contact: "9000000000", //Provide the customer's phone number for better conversion rates
-      },
-      notes: {
-        address: "Razorpay Corporate Office",
-      },
-      theme: {
-        color: "#3399cc",
-      },
-    };
-    var rzp1 = new window.Razorpay(options);
-    rzp1.on("payment.failed", function (response) {
-      alert(response.error.code);
-      alert(response.error.description);
-      alert(response.error.source);
-      alert(response.error.step);
-      alert(response.error.reason);
-      alert(response.error.metadata.order_id);
-      alert(response.error.metadata.payment_id);
-    });
-    rzp1.open();
-    e.preventDefault();
+      var rzp1 = new window.Razorpay(options);
+      rzp1.on("payment.failed", function (response) {
+        console.error("Payment failed", response.error);
+        alert(response.error.description);
+      });
 
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (validateForm()) {
-      console.log('Form submitted successfully:', formData, eventDetails);
-    } else {
-      console.log('Form validation failed');
+      rzp1.open();
+      e.preventDefault();
+    } catch (error) {
+      console.error("Order creation error:", error);
     }
+
+
   };
 
   const handlePayButtonClick = () => {
@@ -289,7 +247,7 @@ const Register = () => {
     <div className="register-container">
       <div className="register-card">
         <h1 className="register-title">Registration</h1>
-        <form className="register-form" onSubmit={handleSubmit}>
+        <form className="register-form">
           {/* Basic Form Fields */}
           <div className="form-row">
             <div className="form-group">
