@@ -610,7 +610,7 @@ const Register = () => {
 
           {/* Query Section */}
           <div className="query-section">
-            <p>If any query, call: 65879585</p>
+            <p>If any query, call: &nbsp;81973 76168</p>
           </div>
         </form>
       </div>
