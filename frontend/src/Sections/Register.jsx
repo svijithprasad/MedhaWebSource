@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Register.css';
 import axios from 'axios'
 
@@ -60,6 +60,36 @@ const Register = () => {
 
   // State to manage which section is visible
   const [activeSection, setActiveSection] = useState('technical'); // 'technical' or 'cultural'
+
+  // Recalculate total amount based on selected events and participants
+  const calculateTotalAmount = () => {
+    let totalParticipants = 0;
+
+    // Count participants for selected technical events
+    Object.keys(events).forEach((event) => {
+      if (events[event]) {
+        const participants = eventDetails[event];
+        totalParticipants += Object.values(participants).filter((p) => p.trim() !== '').length;
+      }
+    });
+
+    // Count participants for selected cultural events
+    Object.keys(culturalEvents).forEach((event) => {
+      if (culturalEvents[event]) {
+        const participants = eventDetails[event];
+        totalParticipants += Object.values(participants).filter((p) => p.trim() !== '').length;
+      }
+    });
+
+    // Calculate the total amount (100 INR per participant)
+    const calculatedAmount = totalParticipants * 100;
+    setTotalAmount(calculatedAmount);
+  };
+
+  useEffect(() => {
+    calculateTotalAmount();
+  }, [events, culturalEvents, eventDetails]);
+
 
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
@@ -160,14 +190,7 @@ const Register = () => {
 
   //this is for the pay button
   const paymentHandler = async (e) => {
-    //total amount calculation
-    let totalParticipants = 0;
-    Object.keys(eventDetails).forEach((event) => {
-      totalParticipants += Object.values(eventDetails[event]).filter((p) => p.trim() !== '').length;
-    });
-
-    const calculatedAmount = totalParticipants * 10000;
-    setTotalAmount(calculatedAmount);
+    const calculatedAmount = totalAmount * 100;
 
     const amount = calculatedAmount;
     const currency = "INR";
@@ -237,6 +260,11 @@ const Register = () => {
       console.error("Order creation error:", error);
     }
   };
+
+
+
+
+
 
 
 
@@ -572,6 +600,8 @@ const Register = () => {
               </div>
             </div>
           )}
+
+          <div><h3>Total Payment: ₹{totalAmount}</h3></div>
 
           {/* Pay Button */}
           <button type="button" className="pay-button" onClick={paymentHandler}>
