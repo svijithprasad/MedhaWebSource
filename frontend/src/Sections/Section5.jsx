@@ -79,7 +79,7 @@ const Section5 = () => {
             fontWeight: "bold",
             fontFamily: "'Bangers', cursive",
             letterSpacing: "2px",
-            textShadow: "2px 2px 4px rgba(255, 215, 0, 0.5)",
+            // textShadow: "2px 2px 4px rgba(255, 215, 0, 0.5)",
             marginBottom: isMobile ? "1rem" : 0,
           }}
         >

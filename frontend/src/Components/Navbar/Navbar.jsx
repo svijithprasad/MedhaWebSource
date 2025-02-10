@@ -46,9 +46,9 @@ export const Navbar = () => {
       {isMenuOpen && (
         <div className="dropdown-menu">
           <Link to="/" onClick={closeMenu}>Home</Link>
-          <a href="#about-section" onClick={closeMenu}>About</a>
-          <a href="#event-section" onClick={closeMenu}>Events</a>
-          <a href="#contact-section" onClick={closeMenu}>Contact</a>
+          <a href="/#about-section" onClick={closeMenu}>About</a>
+          <a href="/#event-section" onClick={closeMenu}>Events</a>
+          <a href="/#contact-section" onClick={closeMenu}>Contact</a>
           <Link to="/register" onClick={closeMenu}>Register</Link> {/* Use Link for navigation in dropdown */}
         </div>
       )}

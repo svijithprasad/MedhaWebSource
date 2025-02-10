@@ -53,9 +53,9 @@
   font-weight: 700; /* Bold font weight */
   letter-spacing: 2px;
   word-spacing: 5px;
-  font-size: 1.5rem; /* Slightly larger text */
+  font-size: 1.3rem; /* Slightly larger text */
   color: #E9E083; /* Gold color for text */
-  margin-left: -250px;
+  margin-left: -200px;
 }
 
 .menu {
@@ -139,7 +139,7 @@
   }
 
   .logo-text {
-    font-size: 0.9rem; /* Smaller text for mobile */
+    font-size: 0.7rem; /* Smaller text for mobile */
     margin-left: 15px;
   }
 

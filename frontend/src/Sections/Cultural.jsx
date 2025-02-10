@@ -60,7 +60,7 @@ const CulturalEvents = () => {
     {
       title: '', 
       backgroundImage: "url('/images/advengers.jpg')", 
-      rules: [ 'MCA Event','Participants: 2 ',
+      rules: [ 'MCA Event','Participants: 5 ','Time: 3+1 min','For the theme teams should contact the team heads one day prior',
         "Student coordinators:", 'Shruthi-8431742695', 'Nismitha-7619531629'
       ],
     },

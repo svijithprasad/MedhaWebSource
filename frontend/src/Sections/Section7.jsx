@@ -1,3 +1,5 @@
+
+
 import React, { useState, useRef } from 'react';
 
 const FlipBook = () => {
@@ -18,144 +20,99 @@ const FlipBook = () => {
       {/* Audio element for the flip sound */}
       <audio ref={audioRef} src="/sounds/page-flip.mp3" preload="auto"></audio>
 
-      <h1 style={{ textAlign: 'center', color: '#fff', marginBottom: '-100px', marginTop: '20px', fontFamily: "'AvengersFont', sans-serif", textTransform: "uppercase", color: "red", fontWeight: "bold",   wordSpacing: "7px",
-            letterSpacing: "2.5px",fontSize: "55px" }}>E-brochure</h1>
+      {/* Title */}
+      <h1
+        style={{
+          textAlign: 'center',
+          color: '#fff',
+          marginBottom: '-100px',
+          marginTop: '20px',
+          fontFamily: "'AvengersFont', sans-serif",
+          textTransform: 'uppercase',
+          color: 'red',
+          fontWeight: 'bold',
+          wordSpacing: '7px',
+          letterSpacing: '2.5px',
+          fontSize: '55px',
+        }}
+      >
+        E-brochure
+      </h1>
 
       {/* Flipbook Container */}
       <div className="flipbook-container">
         <div className="book" style={{ '--c': currentPage }}>
-          {/* Pages go here as per your existing code */}
           {/* Page 1 */}
           <div className="page" style={{ '--i': 0 }}>
-            <div className="front" style={{ backgroundImage: "url('/images/b1.jpg')" }} onClick={() => handlePageFlip(1)}>
-              
-            </div>
-            <div className="back" style={{ backgroundImage: "url('/images/b2.jpg')" }} onClick={() => handlePageFlip(0)}>
-              <h2></h2>
-            </div>
+            <div className="front" onClick={() => handlePageFlip(1)}></div>
+            <div className="back" onClick={() => handlePageFlip(0)}></div>
           </div>
 
           {/* Page 2 */}
           <div className="page" style={{ '--i': 1 }}>
-            <div 
-              className="front" 
-              style={{ backgroundImage: "url('/images/b3.jpg')" }} 
-              onClick={() => handlePageFlip(2)}
-            >
-            
-            </div>
-            <div 
-              className="back" 
-              style={{ backgroundImage: "url('/images/b4.jpg)" }} 
-              onClick={() => handlePageFlip(1)}
-            >
-             
-            </div>
+            <div className="front" onClick={() => handlePageFlip(2)}></div>
+            <div className="back" onClick={() => handlePageFlip(1)}></div>
           </div>
 
           {/* Page 3 */}
           <div className="page" style={{ '--i': 2 }}>
-            <div 
-              className="front" 
-              style={{ backgroundImage: "url('/images/b5.jpg')" }} 
-              onClick={() => handlePageFlip(3)}
-            >
-             
-              
-            </div>
-            <div 
-              className="back" 
-              style={{ backgroundImage: "url('/images/b6.jpg')" }} 
-              onClick={() => handlePageFlip(2)}
-            >
-            </div>
+            <div className="front" onClick={() => handlePageFlip(3)}></div>
+            <div className="back" onClick={() => handlePageFlip(2)}></div>
           </div>
 
           {/* Page 4 */}
           <div className="page" style={{ '--i': 3 }}>
-            <div 
-              className="front" 
-              style={{ backgroundImage: "url('/images/b7.jpg')" }} 
-              onClick={() => handlePageFlip(4)}
-            >
-            </div>
-            <div 
-              className="back" 
-              style={{ backgroundImage: "url('/images/b8.jpg')" }} 
-              onClick={() => handlePageFlip(3)}
-            >
-            </div>
+            <div className="front" onClick={() => handlePageFlip(4)}></div>
+            <div className="back" onClick={() => handlePageFlip(3)}></div>
           </div>
 
           {/* Page 5 */}
           <div className="page" style={{ '--i': 4 }}>
-            <div 
-              className="front" 
-              style={{ backgroundImage: "url('/images/b9.jpg')" }} 
-              onClick={() => handlePageFlip(5)}
-            >
-            </div>
-            <div 
-              className="back" 
-              style={{ backgroundImage: "url('/images/b10.jpg')" }} 
-              onClick={() => handlePageFlip(4)}
-            >
-            </div>
+            <div className="front" onClick={() => handlePageFlip(5)}></div>
+            <div className="back" onClick={() => handlePageFlip(4)}></div>
           </div>
 
           {/* Page 6 */}
           <div className="page" style={{ '--i': 5 }}>
-            <div 
-              className="front" 
-              style={{ backgroundImage: "url('/images/b11.jpg')" }} 
-              onClick={() => handlePageFlip(6)}
-            >
-            </div>
-            <div 
-              className="back" 
-              style={{ backgroundImage: "url('/images/b12.jpg')" }} 
-              onClick={() => handlePageFlip(5)}
-            >
-            </div>
+            <div className="front" onClick={() => handlePageFlip(6)}></div>
+            <div className="back" onClick={() => handlePageFlip(5)}></div>
           </div>
 
           {/* Page 7 */}
           <div className="page" style={{ '--i': 6 }}>
-            <div 
-              className="front" 
-              style={{ backgroundImage: "url('/images/b13.jpg')" }} 
-              onClick={() => handlePageFlip(7)}
-            >
-            </div>
-            <div 
-              className="back" 
-              style={{ backgroundImage: "url('/images/bg5.png')" }} 
-              onClick={() => handlePageFlip(6)}
-            >
-            </div>
+            <div className="front" onClick={() => handlePageFlip(7)}></div>
+            <div className="back" onClick={() => handlePageFlip(6)}></div>
           </div>
         </div>
       </div>
 
       {/* Download Button */}
       <div style={{ textAlign: 'center', marginTop: '20px' }}>
-        <a href="/pdf/Brochure.pdf" download style={{ textDecoration: 'none', color: 'white', backgroundColor: 'transparent', 
-          border: '2px solid red',
-           padding: '10px 20px',
-            borderRadius: '5px', 
+        <a
+          href="/pdf/Brochure.pdf"
+          download
+          style={{
+            textDecoration: 'none',
+            color: 'white',
+            backgroundColor: 'transparent',
+            border: '2px solid red',
+            padding: '10px 20px',
+            borderRadius: '5px',
             fontSize: '16px',
-             cursor: 'pointer',
-              display: 'inline-flex', 
-              alignItems: 'center',
-              marginTop:'-50px',
-              marginBottom:'50px',
-              
-               gap: '10px' }}>
+            cursor: 'pointer',
+            display: 'inline-flex',
+            alignItems: 'center',
+            marginTop: '-50px',
+            marginBottom: '50px',
+            gap: '10px',
+          }}
+        >
           <span>Download E-Brochure</span>
           <span style={{ fontSize: '20px' }}></span> {/* Download icon */}
         </a>
       </div>
 
+      {/* Styles */}
       <style>{`
         * {
           box-sizing: border-box;
@@ -179,8 +136,8 @@ const FlipBook = () => {
 
         .book {
           display: flex;
-          width: 600px;
-          height: 500px;
+          width: 700px;
+          height: 550px;
           pointer-events: none;
           transform-style: preserve-3d;
           transition: translate 1s;
@@ -212,7 +169,7 @@ const FlipBook = () => {
           flex: none;
           width: 100%;
           height: 100%;
-          padding: 2rem;
+          padding: 3rem;
           backface-visibility: hidden;
           background-size: cover;
           background-position: center;
@@ -224,75 +181,83 @@ const FlipBook = () => {
           rotate: 0 1 0 180deg;
         }
 
+        /* Desktop Background Images (Landscape) */
+        .page:nth-child(1) .front { background-image: url('/images/b1.jpg'); }
+        .page:nth-child(1) .back { background-image: url('/images/b2.jpg'); }
+        .page:nth-child(2) .front { background-image: url('/images/b3.jpg'); }
+        .page:nth-child(2) .back { background-image: url('/images/b4.jpg'); }
+        .page:nth-child(3) .front { background-image: url('/images/b5.jpg'); }
+        .page:nth-child(3) .back { background-image: url('/images/b6.jpg'); }
+        .page:nth-child(4) .front { background-image: url('/images/b7.jpg'); }
+        .page:nth-child(4) .back { background-image: url('/images/b8.jpg'); }
+        .page:nth-child(5) .front { background-image: url('/images/b9.jpg'); }
+        .page:nth-child(5) .back { background-image: url('/images/b10.jpg'); }
+        .page:nth-child(6) .front { background-image: url('/images/b11.jpg'); }
+        .page:nth-child(6) .back { background-image: url('/images/b12.jpg'); }
+        .page:nth-child(7) .front { background-image: url('/images/b13.jpg'); }
+        .page:nth-child(7) .back { background-image: url('/images/b14.png'); }
+
+        /* Mobile Background Images (Portrait) */
+        @media (max-width: 768px) {
+          .page:nth-child(1) .front { background-image: url('/images/pp1.png'); }
+          .page:nth-child(1) .back { background-image: url('/images/pp2.png'); }
+          .page:nth-child(2) .front { background-image: url('/images/pp3.png'); }
+          .page:nth-child(2) .back { background-image: url('/images/pp4.png'); }
+          .page:nth-child(3) .front { background-image: url('/images/pp5.png'); }
+          .page:nth-child(3) .back { background-image: url('/images/pp6.png'); }
+          .page:nth-child(4) .front { background-image: url('/images/pp7.png'); }
+          .page:nth-child(4) .back { background-image: url('/images/pp8.png'); }
+          .page:nth-child(5) .front { background-image: url('/images/pp9.png'); }
+          .page:nth-child(5) .back { background-image: url('/images/pp10.png'); }
+          .page:nth-child(6) .front { background-image: url('/images/pp11.png'); }
+          .page:nth-child(6) .back { background-image: url('/images/pp12.png'); }
+          .page:nth-child(7) .front { background-image: url('/images/pp13.png'); }
+          .page:nth-child(7) .back { background-image: url('/images/pp14.png'); }
+
+          /* Adjust background size and position for mobile */
+          .book {
+    transform: rotate(90deg); /* Rotate the book by 90 degrees */
+    width: 100vh; /* Adjust width to fit the rotated view */
+    height: 100vw; /* Adjust height to fit the rotated view */
+    margin: 20px auto; /* Add some margin for better spacing */
+    translate:0 0;
+  }
+
+  .page {
+    width: 110%; /* Ensure pages take full width */
+    height: 100%; /* Ensure pages take full height */
+    
+  }
+
+  .front,
+  .back {
+    background-size: cover; /* Ensure images fit properly */
+    background-position: center; /* Center the images */
+    
+  }
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
           .book {
-            width: 500px;
-            height: 400px;
+            width: 540px;
+            height: 240px;
           }
-
-          .front, .back {
-            padding: 1.5rem;
-          }
-
-          h1 { font-size: 1.8rem; }
-          h2 { font-size: 1.4rem; }
-          h3 { font-size: 1.2rem; }
-          p { font-size: 0.9rem; }
         }
 
         @media (max-width: 600px) {
           .book {
-            width: 50vw;
-            height: 45vh;
-            
+            width: 51vw;
+            height: 26vh;
             rotate: 1 0 0 20deg;
           }
-
-          .flipbook-container {
-            padding: 10px;
-          }
-
-          .front, .back {
-            padding: 1rem;
-          }
-
-          h1 { font-size: 1.5rem; }
-          h2 { font-size: 1.2rem; }
-          h3 { font-size: 1rem; }
-          p { font-size: 0.8rem; }
         }
 
         @media (max-width: 480px) {
           .book {
-            height: 40vh;
-            
+            height: 33vh;
             rotate: 1 0 0 15deg;
           }
-
-          .front, .back {
-            padding: 0.8rem;
-          }
-
-          h1 { font-size: 1.3rem; }
-          h2 { font-size: 1.1rem; }
-          p { font-size: 0.7rem; }
-        }
-
-        /* Rest of the original styles remain the same */
-        .page.flipping {
-          rotate: 0 1 0 -180deg;
-          transform: translateZ(calc((var(--c) - var(--i) - 0.5) * var(--z))) rotateY(-180deg);
-        }
-
-        h1, h2, h3 {
-          color: #333;
-          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        p {
-          color: #555;
-          line-height: 1.6;
         }
       `}</style>
     </>
@@ -300,3 +265,8 @@ const FlipBook = () => {
 };
 
 export default FlipBook;
+
+
+
+
+

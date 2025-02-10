@@ -38,7 +38,7 @@ const Section3 = () => {
       titlePosition: { top: "20px", left: "10px" },
       coordinators: [
         { name: "Adithya kumar", number: "6361600211" },
-        { name: "Dharani", number: "8762597523" },
+        { name: "Dharini", number: "7829836938" },
       ],
       rules:
        ` 1. Number of participants :2.\n
@@ -60,7 +60,7 @@ const Section3 = () => {
       titlePosition: { top: "10px", left: "10px" },
       coordinators: [
         { name: "Sachin", number: "6361428036" },
-        { name: "Ritish", number: "7829150482" },
+        { name: "Rithish", number: "7829150482" },
       ],
       rules: ` 1. Number of participants :2.\n
        2.Participants are allowed to use one of the following programming languages:C , C++ , Java.\n
@@ -152,7 +152,9 @@ Capture the moment, Launch the reel…!`,
       2.Players must use their own mobile devices with BGMI installed. Emulators and third-party software are strictly prohibited.
       3.Hacks, cheats, or exploits will result in the immediate disqualification of the entire team.
       4.Unsportsmanlike behavior, offensive language, or toxic behavior will not be tolerated. Violators will be penalized or disqualified
-      5.	Teams must join the lobby on time as per the schedule. Late entries will not be entertained.`,
+      5.Teams must join the lobby on time as per the schedule. Late entries will not be entertained.
+      6.Players must arrange their own internet, as organizers won’t provide it. No complaints or match restarts for connectivity issues; participation implies full responsibility. `
+      ,
 
     },
     // ... (your card data remains the same)

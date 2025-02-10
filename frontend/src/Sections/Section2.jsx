@@ -20,6 +20,16 @@ const Section2 = () => {
     }
   };
 
+  // Ensure the video plays automatically when the component mounts
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.play().catch(error => {
+        console.error("Video play failed:", error);
+      });
+    }
+  }, []);
+
   // Prevent fullscreen mode
   useEffect(() => {
     const video = videoRef.current;
@@ -171,12 +181,12 @@ const Section2 = () => {
         {`
           @media (max-width: 768px) {
             .superman-container img {
-              width: 60px !important; /* Reduce Superman image size */
+              width: 100px !important; /* Reduce Superman image size */
               height: auto;
             }
             .superman-container {
               right: 1%; /* Adjust position for smaller screens */
-              bottom: 10%;
+              bottom: 1%;
             }
             /* Left Image */
             div[style*="left: 10%"] img {
@@ -216,7 +226,7 @@ const Section2 = () => {
               width: 70px !important; /* Further reduce Superman image size */
             }
             div[style*="left: 10%"] img {
-              width: 100px !important; /* Further reduce left image size */
+              width: 90px !important; /* Further reduce left image size */
             }
             h1 {
               font-size: 26px !important;

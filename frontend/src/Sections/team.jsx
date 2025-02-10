@@ -235,7 +235,6 @@
 
 // export default Team;
 
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "font-awesome/css/font-awesome.min.css";
@@ -264,8 +263,6 @@ const Team = () => {
     '/images/c16.PNG',
     '/images/c11.PNG',
     '/images/c10.PNG',
-
-
   ];
 
   // Scroll to the top of the page when the component mounts
@@ -275,7 +272,7 @@ const Team = () => {
 
   return (
     <div style={{ padding: '2rem', textAlign: 'center', paddingBottom: '80px' }}>
-      <h1 style={{ fontFamily: "'AvengersFont', sans-serif",fontSize:"36px", color: '#ED1D24', margin: "60px" }}>
+      <h1 style={{ fontFamily: "'AvengersFont', sans-serif", fontSize: "36px", color: '#ED1D24', margin: "60px" }}>
         
       </h1>
 
@@ -327,6 +324,14 @@ const Team = () => {
               width: 100%;
               padding: 20px;
             }
+
+            /* Adjust card size for mobile screens */
+            div[style*="height: 300px; width: 250px;"] {
+              height: 400px !important; /* Increase height */
+              width: 400px !important; /* Increase width */
+              background-size: 120% !important; 
+              background-repeat:no-repeat;/* Zoom in the image */
+            }
           }
         `}
       </style>
@@ -338,7 +343,6 @@ const Team = () => {
           padding: '10px 20px',
           background: '#0047AB',
           color: 'white',
-          // backgroundColor: "transparent",
           border: 'none',
           borderRadius: '5px',
           cursor: 'pointer',
