@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 
 const Section1 = () => {
@@ -39,12 +40,12 @@ const Section1 = () => {
           }}
         >
           <h3 style={{ fontSize: "1.5rem", color: "#01f9c6" }}>Contact</h3>
-          <p style={{color:'white'}}>Shree Devi Institute Of Technology</p>
-          <p style={{color:'white'}}>Airport Road, Kenjar,</p>
-          <p style={{color:'white'}}>Mangaluru - 575003,</p>
-          <p style={{color:'white'}}>Dakshina Kannada District, Karnataka</p>
+          <p style={{color:'white', margin: "10px 0" }}>Shree Devi Institute Of Technology</p>
+          <p style={{color:'white', margin: "10px 0" }}>Airport Road, Kenjar,</p>
+          <p style={{color:'white', margin: "10px 0" }}>Mangaluru - 575003,</p>
+          <p style={{color:'white', margin: "10px 0" }}>Dakshina Kannada District, Karnataka</p>
           {/* <p style={{color:'white'}}>+91 6361600211</p> */}
-          <p style={{color:'white'}}>sditmcadept2022@gmail.com</p>
+          <p style={{color:'white', margin: "10px 0"  }}>sditmcadept2022@gmail.com</p>
         </div>
 
         {/* Quick Links Section */}
@@ -104,22 +105,28 @@ const Section1 = () => {
           ></iframe>
         </div>
       </div>
+      
 
       {/* Social Media Icons */}
       <div
         style={{
-          position: "fixed", // Fixing to the bottom of the screen
+           // Fixing to the bottom of the screen
           bottom: "20px",      // Distance from the bottom of the viewport
           left: "50%",         // Centering the div horizontally
-          transform: "translateX(-50%)", // Ensure it stays centered
+          // Ensure it stays centered
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           gap: "15px",
-          zIndex: "10",        // Ensuring the icons are above other content
+          zIndex: "10", 
+          color:"white",
+                 // Ensuring the icons are above other content
         }}
       >
-        
+        <div >
+        <Link to="/terms" style={{textDecoration:"none",color:"white"}}>Terms and Conditions</Link> &nbsp;|&nbsp;
+        <Link to="/privacy" style={{textDecoration:"none",color:"white"}}>Privacy Policy</Link>
+      </div>
         
          </div>
     </section>
