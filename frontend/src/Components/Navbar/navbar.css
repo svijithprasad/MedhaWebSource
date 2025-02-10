@@ -76,6 +76,38 @@
   transition: color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
 }
 
+.buttonProp {
+  color: #E9E083; /* Gold color for links */
+  text-decoration: none;
+  letter-spacing: 1px;
+  font-size: 1rem;
+  transition: color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+}
+.nav-link{
+  color: #E9E083; /* Gold color for links */
+  text-decoration: none;
+  letter-spacing: 1px;
+  font-size: 1rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+  background-color: transparent;
+  border-width: 0px;
+  font-weight: bold;
+  margin: 10px;
+  
+  text-transform: capitalize;
+  
+}
+
+.nav-link:hover{
+  color: #D98C2C; /* Orange color on hover */
+  transform: translateY(-2px); /* Slight upward movement */
+}
+
+.buttonProp:hover{
+  color: #D98C2C; /* Orange color on hover */
+  transform: translateY(-2px); /* Slight upward movement */
+}
+
 .menu a:hover {
   color: #D98C2C; /* Orange color on hover */
   transform: translateY(-2px); /* Slight upward movement */

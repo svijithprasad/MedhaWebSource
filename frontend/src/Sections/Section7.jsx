@@ -182,37 +182,39 @@ const FlipBook = () => {
         }
 
         /* Desktop Background Images (Landscape) */
-        .page:nth-child(1) .front { background-image: url('/images/b1.jpg'); }
-        .page:nth-child(1) .back { background-image: url('/images/b2.jpg'); }
-        .page:nth-child(2) .front { background-image: url('/images/b3.jpg'); }
-        .page:nth-child(2) .back { background-image: url('/images/b4.jpg'); }
-        .page:nth-child(3) .front { background-image: url('/images/b5.jpg'); }
-        .page:nth-child(3) .back { background-image: url('/images/b6.jpg'); }
-        .page:nth-child(4) .front { background-image: url('/images/b7.jpg'); }
-        .page:nth-child(4) .back { background-image: url('/images/b8.jpg'); }
-        .page:nth-child(5) .front { background-image: url('/images/b9.jpg'); }
-        .page:nth-child(5) .back { background-image: url('/images/b10.jpg'); }
-        .page:nth-child(6) .front { background-image: url('/images/b11.jpg'); }
-        .page:nth-child(6) .back { background-image: url('/images/b12.jpg'); }
-        .page:nth-child(7) .front { background-image: url('/images/b13.jpg'); }
-        .page:nth-child(7) .back { background-image: url('/images/b14.png'); }
+        .page:nth-child(1) .front { background-image: url('/images/1.jpg'); }
+        .page:nth-child(1) .back { background-image: url('/images/2.jpg'); }
+        .page:nth-child(2) .front { background-image: url('/images/3.jpg'); }
+        .page:nth-child(2) .back { background-image: url('/images/4.jpg'); }
+        .page:nth-child(3) .front { background-image: url('/images/5.jpg'); }
+        .page:nth-child(3) .back { background-image: url('/images/6.jpg'); }
+        .page:nth-child(4) .front { background-image: url('/images/7.jpg'); }
+        .page:nth-child(4) .back { background-image: url('/images/8.jpg'); }
+        .page:nth-child(5) .front { background-image: url('/images/9.jpg'); }
+        .page:nth-child(5) .back { background-image: url('/images/10.jpg'); }
+        .page:nth-child(6) .front { background-image: url('/images/11.jpg'); }
+        .page:nth-child(6) .back { background-image: url('/images/12.jpg'); }
+        .page:nth-child(7) .front { background-image: url('/images/13.jpg'); }
+        .page:nth-child(7) .back { background-image: url('/images/14.jpg'); }
+        .page:nth-child(7) .back { background-image: url('/images/15.jpg'); }
 
         /* Mobile Background Images (Portrait) */
         @media (max-width: 768px) {
-          .page:nth-child(1) .front { background-image: url('/images/pp1.png'); }
-          .page:nth-child(1) .back { background-image: url('/images/pp2.png'); }
-          .page:nth-child(2) .front { background-image: url('/images/pp3.png'); }
-          .page:nth-child(2) .back { background-image: url('/images/pp4.png'); }
-          .page:nth-child(3) .front { background-image: url('/images/pp5.png'); }
-          .page:nth-child(3) .back { background-image: url('/images/pp6.png'); }
-          .page:nth-child(4) .front { background-image: url('/images/pp7.png'); }
-          .page:nth-child(4) .back { background-image: url('/images/pp8.png'); }
-          .page:nth-child(5) .front { background-image: url('/images/pp9.png'); }
-          .page:nth-child(5) .back { background-image: url('/images/pp10.png'); }
-          .page:nth-child(6) .front { background-image: url('/images/pp11.png'); }
-          .page:nth-child(6) .back { background-image: url('/images/pp12.png'); }
-          .page:nth-child(7) .front { background-image: url('/images/pp13.png'); }
-          .page:nth-child(7) .back { background-image: url('/images/pp14.png'); }
+          .page:nth-child(1) .front { background-image: url('/images/pp1.jpg'); }
+          .page:nth-child(1) .back { background-image: url('/images/pp2.jpg'); }
+          .page:nth-child(2) .front { background-image: url('/images/pp3.jpg'); }
+          .page:nth-child(2) .back { background-image: url('/images/pp4.jpg'); }
+          .page:nth-child(3) .front { background-image: url('/images/pp5.jpg'); }
+          .page:nth-child(3) .back { background-image: url('/images/pp6.jpg'); }
+          .page:nth-child(4) .front { background-image: url('/images/pp7jpgg'); }
+          .page:nth-child(4) .back { background-image: url('/images/pp8.jpg'); }
+          .page:nth-child(5) .front { background-image: url('/images/pp9.jpg'); }
+          .page:nth-child(5) .back { background-image: url('/images/pp10.jpg'); }
+          .page:nth-child(6) .front { background-image: url('/images/pp11.jpg'); }
+          .page:nth-child(6) .back { background-image: url('/images/pp12.jpg'); }
+          .page:nth-child(7) .front { background-image: url('/images/pp13.jpg'); }
+          .page:nth-child(7) .back { background-image: url('/images/pp14.jpg'); }
+          .page:nth-child(7) .back { background-image: url('/images/pp15.jpg'); }
 
           /* Adjust background size and position for mobile */
           .book {
@@ -221,6 +223,7 @@ const FlipBook = () => {
     height: 100vw; /* Adjust height to fit the rotated view */
     margin: 20px auto; /* Add some margin for better spacing */
     translate:0 0;
+    margin-top:70px;
   }
 
   .page {
@@ -240,22 +243,22 @@ const FlipBook = () => {
         /* Responsive adjustments */
         @media (max-width: 768px) {
           .book {
-            width: 540px;
-            height: 240px;
+            width: 520px;
+            height: 220px;
           }
         }
 
         @media (max-width: 600px) {
           .book {
-            width: 51vw;
-            height: 26vh;
+            width: 44vw;
+            height: 29vh;
             rotate: 1 0 0 20deg;
           }
         }
 
         @media (max-width: 480px) {
           .book {
-            height: 33vh;
+            height: 31vh;
             rotate: 1 0 0 15deg;
           }
         }
