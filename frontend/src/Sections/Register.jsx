@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Register.css';
 import axios from 'axios'
 
@@ -60,6 +60,36 @@ const Register = () => {
 
   // State to manage which section is visible
   const [activeSection, setActiveSection] = useState('technical'); // 'technical' or 'cultural'
+
+  // Recalculate total amount based on selected events and participants
+  const calculateTotalAmount = () => {
+    let totalParticipants = 0;
+
+    // Count participants for selected technical events
+    Object.keys(events).forEach((event) => {
+      if (events[event]) {
+        const participants = eventDetails[event];
+        totalParticipants += Object.values(participants).filter((p) => p.trim() !== '').length;
+      }
+    });
+
+    // Count participants for selected cultural events
+    Object.keys(culturalEvents).forEach((event) => {
+      if (culturalEvents[event]) {
+        const participants = eventDetails[event];
+        totalParticipants += Object.values(participants).filter((p) => p.trim() !== '').length;
+      }
+    });
+
+    // Calculate the total amount (100 INR per participant)
+    const calculatedAmount = totalParticipants * 100;
+    setTotalAmount(calculatedAmount);
+  };
+
+  useEffect(() => {
+    calculateTotalAmount();
+  }, [events, culturalEvents, eventDetails]);
+
 
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
@@ -160,35 +190,12 @@ const Register = () => {
 
   //this is for the pay button
   const paymentHandler = async (e) => {
-
-
-    //total amount calculation
-    let totalParticipants = 0;
-    Object.keys(eventDetails).forEach((event) => {
-      totalParticipants += Object.values(eventDetails[event]).filter((p) => p.trim() !== '').length;
-    });
-
-    const calculatedAmount = totalParticipants * 10000;
-    setTotalAmount(calculatedAmount);
+    const calculatedAmount = totalAmount * 100;
 
     const amount = calculatedAmount;
     const currency = "INR";
     const receiptId = "receiptId1";
 
-    const registrationData = {
-      name: formData.name,
-      phone: formData.phone,
-      collegeName: formData.collegeName,
-      course: formData.course,
-      transactionId: formData.transactionId,
-      events: Object.keys(events).filter(event => events[event]),
-      eventDetails: Object.fromEntries(
-        Object.entries(eventDetails).filter(([event, participants]) =>
-          Object.values(participants).some(participant => participant.trim() !== '')
-        )
-      ),
-      totalAmount: calculatedAmount / 100,
-    };
 
     try {
       const { data: order } = await axios.post("http://localhost:5088/order", {
@@ -207,15 +214,32 @@ const Register = () => {
         order_id: order.id,
         handler: async function (response) {
           try {
-            const validateRes = await axios.post("http://localhost:5088/order/validate", response);
-            if (validateRes.data.msg === "success") {
-              setPaymentSucces(true);
-              setRegisteredDetails(registrationData);
-              console.log("Payment Successful", registrationData);
+            console.log("Razorpay Response:", response);
 
-              // Send registration data
-              await axios.post("http://localhost:5088/register", registrationData);
-            }
+            // Sending order_id, payment_id, and signature to backend for verification
+            const registrationData = {
+              name: formData.name,
+              phone: formData.phone,
+              collegeName: formData.collegeName,
+              course: formData.course,
+              transactionId: `${response.razorpay_order_id}_${response.razorpay_payment_id}`,
+              events: Object.keys(events).filter(event => events[event]),
+              eventDetails: Object.fromEntries(
+                Object.entries(eventDetails).filter(([event, participants]) =>
+                  Object.values(participants).some(participant => participant.trim() !== '')
+                )
+              ),
+              totalAmount: calculatedAmount / 100,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            };
+
+            // Sending this data to backend for validation and registration
+            const result = await axios.post("http://localhost:5088/register", registrationData);
+
+            console.log("Registration Successful:", result.data);
+
           } catch (error) {
             console.error("Payment validation error:", error);
           }
@@ -235,13 +259,14 @@ const Register = () => {
     } catch (error) {
       console.error("Order creation error:", error);
     }
-
-
   };
 
-  const handlePayButtonClick = () => {
-    setShowPaymentImage(true);
-  };
+
+
+
+
+
+
 
   return (
     <div className="register-container">
@@ -576,6 +601,8 @@ const Register = () => {
             </div>
           )}
 
+          <div><h3>Total Payment: ₹{totalAmount}</h3></div>
+
           {/* Pay Button */}
           <button type="button" className="pay-button" onClick={paymentHandler}>
             Pay
@@ -583,7 +610,7 @@ const Register = () => {
 
           {/* Query Section */}
           <div className="query-section">
-            <p>If any query, call: 65879585</p>
+            <p>If any query, call: &nbsp;81973 76168</p>
           </div>
         </form>
       </div>
