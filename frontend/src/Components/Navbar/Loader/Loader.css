@@ -9,7 +9,7 @@
     align-items: center;
     background-color: #000000; /* Solid black background */
     z-index: 9999;
-    transition: opacity 1000s ease-out;
+    transition: opacity 1000s ease;
 }
 
 .loader-container-custom.hidden {
@@ -17,10 +17,10 @@
 }
 
 .loader-logo {
-    width: 1000px; /* Adjust the size as needed */
+    width: 700px; /* Adjust the size as needed */
     height: auto; /* Maintain aspect ratio */
     animation: loader-pulse 5s infinite; /* Optional: Add a pulse animation */
-    margin-top: -20%;
+    margin-top: 8%;
 }
 
 @keyframes loader-pulse {
@@ -32,7 +32,11 @@
 /* Media query for small screens (e.g., mobile phones) */
 @media only screen and (max-width: 768px) {
     .loader-logo {
-        width: 80%; /* Adjust the size for smaller screens */
-        margin-top: -10%; /* Adjust the margin for smaller screens */
+        width: 350px; /* Fixed width for smaller screens */
+        margin-top: 0; /* Reset margin-top */
+        position: absolute;
+        top: 30%;
+        left: 10%;
+        transform: translate(-50%, -50%); /* Center the logo */
     }
-}
+}   

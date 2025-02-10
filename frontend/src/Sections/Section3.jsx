@@ -64,8 +64,8 @@ const Section3 = () => {
       ],
       rules: ` 1. Number of participants :2.\n
        2.Participants are allowed to use one of the following programming languages:C , C++ , Java.\n
-       3.Switching between tabs during the contest.\n
-        4.Using Google or any other search engine to find solutions or references.\n
+       3.Switching between tabs during the contest not allowed .\n
+        4.Using Google or any other search engine to find solutions or references is not allowed .\n
       5.Violation of these rules will result in immediate disqualification`
 
     },
@@ -132,7 +132,9 @@ Capture the moment, Launch the reel…!`,
       2.No calculators or external aids allowed.
       3. Answer all questions within the allotted time.
     4. Candidates with the highest scores proceed to the next round.
-    5.Participant must come in a formal attire.`,
+    5.Participant must come in a formal attire.
+    6.Participants should not be participate in other events 
+    7.From each college there should be one participant for IT Manager event. `,
 
     },
     {
