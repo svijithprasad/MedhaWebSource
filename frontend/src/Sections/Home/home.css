@@ -103,7 +103,7 @@
 @media (max-width: 600px) {
   .marvel {
     left: -250px;
-    top: 170px;
+    top: 192px;
     height: 80%;
     width: 600px;
   }
@@ -121,9 +121,9 @@
   }
   .dc {
     right: -260px;
-    top: 165px;
+    top: 170px;
     height: 80%;
-    width: 600px;
+    width: 610px;
   }
 
   .logo1 {
@@ -218,3 +218,84 @@
   animation: rotate 10s linear infinite;
   z-index: 1;
 }
+
+/* Existing CSS remains the same until the media queries */
+
+/* Tablet View */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .main {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    z-index: 5;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+    margin-top: 0px;
+  }
+
+  .marvel {
+    left: -500px;
+    top: 240px;
+    height: 100%;
+    width: 1200px;
+    animation: pulsate 2s infinite ease-in-out;
+    transform: scaleX(1) scaleY(1.2) rotateY(180deg);
+  }
+
+  .dc {
+    right: -500px;
+    top: 210px;
+    height: 110%;
+    width: 1200px;
+    animation: pulsateDC 2s infinite ease-in-out;
+    transform: scaleX(1) scaleY(1.2) rotateY(180deg);
+  }
+
+  .logo1 {
+    position: absolute;
+    height: 100%;
+    width: 90%;
+    top: 28%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+
+  .charakara {
+    height: 35%;
+    width: 60%;
+    top: 21%;
+    left: 22%;
+    z-index: 1;
+  }
+
+  .countdown-container {
+    padding: 1.5rem 2.5rem;
+    gap: 1.2rem;
+    border-radius: 18px;
+    width: 90%;
+    max-width: 600px;
+    top: 75%;
+  }
+
+  .countdown-item {
+    min-width: 80px;
+  }
+
+  .countdown-value {
+    font-size: 3rem;
+    margin-bottom: -0.6rem;
+  }
+
+  .countdown-label {
+    font-size: 1rem;
+    letter-spacing: 2px;
+  }
+
+  .countdown-separator {
+    font-size: 2.5rem;
+    margin-top: -1rem;
+  }
+}
+
+

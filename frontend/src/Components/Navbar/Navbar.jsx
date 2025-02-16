@@ -24,6 +24,7 @@ export const Navbar = () => {
         section.scrollIntoView({ behavior: "smooth" });
       }
     }, 50); // Small delay to ensure navigation completes
+    closeMenu(); // Close the dropdown menu after navigation
   };
 
   return (

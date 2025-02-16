@@ -4,10 +4,12 @@ import './SliderDemo.css'; // Import the CSS file
 const SliderDemo = () => {
   const [active, setActive] = useState(0);
   const videoRef = useRef(null); // Ref for the video element
+  const videoRef2 = useRef(null); // Ref for the second video element
+
   const items = [
     {
       id: 2,
-      backgroundImage: "url('./images/g1.jpg')",
+      backgroundImage: "url('./images/g13.jpeg')",
       content: <h1></h1>,
     },
     {
@@ -47,16 +49,20 @@ const SliderDemo = () => {
     },
     {
       id: 5,
-      backgroundImage: "url('./images/g4.jpg')",
+      backgroundImage: "url('./images/g14.jpeg')",
       content: <h1></h1>,
     },
     {
       id: 6,
-      backgroundImage: "url('./images/g5.jpg')",
+      backgroundImage: "url('./images/g15.jpeg')",
     },
     {
       id: 7,
       backgroundImage: "url('./images/g6.jpg')",
+    },
+    {
+      id: 17,
+      backgroundImage: "url('./images/g16.jpeg')",
     },
     {
       id: 8,
@@ -71,8 +77,38 @@ const SliderDemo = () => {
       backgroundImage: "url('./images/g9.jpg')",
     },
     {
+      id: 18, // New ID for the second video
+      backgroundImage: "url('./images/g.jpg')", // You can keep the same background image or change it
+      content: (
+        <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
+          <video
+            ref={videoRef2}
+            width="100%"
+            height="100%"
+            autoPlay
+            loop
+            muted
+            playsInline // Prevents full-screen on mobile devices
+            disablePictureInPicture // Disables picture-in-picture mode
+            style={{ 
+              objectFit: 'cover', 
+              position: 'absolute', 
+              top: 0, 
+              left: 0, 
+              width: '100%', 
+              height: '100%' 
+            }}
+            onClick={() => (videoRef2.current.muted = !videoRef2.current.muted)}
+          >
+            <source src="./videos/glimse.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      ),
+    },
+    {
       id: 11,
-      backgroundImage: "url('./images/g10.jpg')",
+      backgroundImage: "url('./images/g1.jpg')",
     },
     {
       id: 12,
@@ -95,8 +131,9 @@ const SliderDemo = () => {
           element.style.opacity = 1;
 
           // Play the video if it's the active slide
-          if (item.id === 3 && videoRef.current) {
-            videoRef.current.play();
+          if ((item.id === 3 || item.id === 18) && (videoRef.current || videoRef2.current)) {
+            if (item.id === 3) videoRef.current.play();
+            if (item.id === 18) videoRef2.current.play();
           }
         } else {
           const stt = Math.abs(active - index);
@@ -109,8 +146,9 @@ const SliderDemo = () => {
           element.style.opacity = stt > 2 ? 0 : 0.6;
 
           // Pause the video if it's not the active slide
-          if (item.id === 3 && videoRef.current) {
-            videoRef.current.pause();
+          if ((item.id === 3 || item.id === 18) && (videoRef.current || videoRef2.current)) {
+            if (item.id === 3) videoRef.current.pause();
+            if (item.id === 18) videoRef2.current.pause();
           }
         }
       }

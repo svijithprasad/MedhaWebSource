@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import "font-awesome/css/font-awesome.min.css";
 import { Link } from "react-router-dom";
@@ -20,11 +18,11 @@ const Section3 = () => {
         { name: "Riyona", number: "8431350418" },
       ],
       rules: `
-     1. Number of participants :2.\n
-     2. The round will consist of multiple-choice questions (MCQs), true/false statements.\n
-     3. Participants will tick their answers on a provided sheet.\n
-     4. Participants will not be allowed to discuss answers with other teams.\n
-     5. Once the time is up, no more answers will be accepted. All answer sheets must be submitted immediately.
+     1.Questions will be based on general knowledge, technical, and programming topics.\n
+2.No electronic gadgets are allowed.\n
+3.The quiz master's and event head's decision is final.\n  
+4.Use of unfair means will lead to disqualification.\n  
+5.Last 4 teams will be selected for the final round.
   `,
     },
     {
@@ -42,9 +40,9 @@ const Section3 = () => {
       ],
       rules:
        ` 1. Number of participants :2.\n
-         2.The Competition will use HTML, CSS, and JavaScript.\n Frameworks will be mentioned later if applicable.\n
-         3.Use of Electronics Devices such as Phones, Gadgets, smartwatches, \nand other electronic devices are not allowed during the competition.\n
-         4.Theme will be announced on spot`
+         2.The participants will use HTML, CSS, and JavaScript for the Competition.\n Frameworks will be mentioned later if applicable.\n
+         3.Use of Electronics Devices such as Phones, Gadgets, smartwatches etc.. \n are  prohibited during the competition.\n
+         4.Theme will be announced on the spot`
         ,
 
     },
@@ -82,13 +80,10 @@ const Section3 = () => {
         { name: "Dainik", number: "8618306639" },
         { name: "Savin", number: "9902736870" },
       ],
-      rules: `1. Number of participants :2
-2. Video must be original and taken within the SDIT campus.
-3. On the day of event , the theme will be provided
-4. Drones are not permitted
-5. It is forbidden to edit using AI websites and Software
-6. Participants should get their Gears, Laptops, etc.
-Capture the moment, Launch the reel…!`,
+      rules: `1.Video content must be original and to be captured within the SDIT campus.\n
+2.The theme will be provided on the spot.\n  
+3.It is forbidden to edit using AI websites and software.\n  
+4.Participants should bring their own gears, laptops, etc.\n `,
 
     },
     {
@@ -104,14 +99,12 @@ Capture the moment, Launch the reel…!`,
         { name: "Gurudath", number: "9901526291" },
         { name: "Mahalaxmi", number: "9526620803" },
       ],
-      rules: `1.Number of partcipants :2 
-      2. Participants should not disclose their college name during their Presentation
-3. No Offensive or inappropriate content is allowed in the product
-
-4. Plagiarism in any form will lead to disqualification
-
-5. Judges decision will be final and binding
-6. The participants should bring their own laptops and phones
+      rules: `1.Number of partcipants :2 \n  
+      2. Participants should not disclose their college name during their Presentation\n  
+3. No Offensive or inappropriate content is allowed in the product\n  
+4. Plagiarism in any form will lead to disqualification\n  
+5. Judges decision will be final and binding\n  
+6. The participants should bring their own laptops and phones\n  
 `,
 
     },
@@ -128,18 +121,15 @@ Capture the moment, Launch the reel…!`,
         { name: "Sunil", number: "8197376168" },
         { name: "Pranamya", number: "9481212107" },
       ],
-      rules: `1. Number of participants : 1
-      2.No calculators or external aids allowed.
-      3. Answer all questions within the allotted time.
-    4. Candidates with the highest scores proceed to the next round.
-    5.Participant must come in a formal attire.
-    6.Participants should not be participate in other events 
-    7.From each college there should be one participant for IT Manager event. `,
+      rules: `1. Number of participants : 1\n  
+    2.Participant must come in a formal attire.\n  
+    3.Participants should not be participate in other events \n  
+    4.From each college there should be one participant for IT Manager event. `,
 
     },
     {
       id: 7,
-      title: "Battle For The Muliverse",
+      title: "Battle For The Multiverse",
       image: "/images/gaming.png",
       button: "Learn More",
       marginTop: "745px",
@@ -150,11 +140,11 @@ Capture the moment, Launch the reel…!`,
         { name: "Jabez", number: "9482833472" },
         { name: "Sakibe", number: "9380340169" },
       ],
-      rules: `1. Number of participants :4
-      2.Players must use their own mobile devices with BGMI installed. Emulators and third-party software are strictly prohibited.
-      3.Hacks, cheats, or exploits will result in the immediate disqualification of the entire team.
-      4.Unsportsmanlike behavior, offensive language, or toxic behavior will not be tolerated. Violators will be penalized or disqualified
-      5.Teams must join the lobby on time as per the schedule. Late entries will not be entertained.
+      rules: `1. Number of participants :4\n  
+      2.Players must use their own mobile devices with BGMI installed. Emulators and third-party software are strictly prohibited.\n  
+      3.Hacks, cheats, or exploits will result in the immediate disqualification of the entire team.\n  
+      4.Unsportsmanlike behavior, offensive language, or toxic behavior will not be tolerated. Violators will be penalized or disqualified\n  
+      5.Teams must join the lobby on time as per the schedule. Late entries will not be entertained.\n  
       6.Players must arrange their own internet, as organizers won’t provide it. No complaints or match restarts for connectivity issues; participation implies full responsibility. `
       ,
 
@@ -165,10 +155,13 @@ Capture the moment, Launch the reel…!`,
   const [isInView, setIsInView] = useState(Array(cardsData.length).fill(false));
   const [activePopup, setActivePopup] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
+      const width = window.innerWidth;
+      setIsMobile(width <= 768);
+      setIsTablet(width > 768 && width <= 1300);
     };
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -220,7 +213,7 @@ Capture the moment, Launch the reel…!`,
             }
           }
 
-          @media (max-width: 768px) {
+          @media (max-width: 738px) {
             .popup-content {
               width: 90% !important;
               height: 80% !important;
@@ -242,6 +235,42 @@ Capture the moment, Launch the reel…!`,
               right: 10px !important;
             }
           }
+
+          /* Tablet-specific styles */
+          @media (min-width: 739px) and (max-width: 1220px) {
+            .card {
+              position: relative !important;
+              top: auto !important;
+              left: auto !important;
+              width: 40% !important;
+              height: 270px !important;
+              margin: 10px !important;
+              transform: none !important;
+            }
+
+            #event-section {
+              min-height: auto !important;
+              padding-bottom: 100px !important;
+            }
+
+            .popup-content {
+              width: 80% !important;
+              height: 70% !important;
+            }
+
+            .popup-content h2 {
+              font-size: 32px !important;
+            }
+
+            .popup-content p {
+              font-size: 16px !important;
+            }
+
+            .popup-content button {
+              padding: 10px 20px !important;
+              font-size: 16px !important;
+            }
+          }
         `}
       </style>
 
@@ -256,6 +285,7 @@ Capture the moment, Launch the reel…!`,
           fontSize: "55px",
           fontFamily: "'AvengersFont', sans-serif",
           textTransform: "uppercase",
+          marginBottom: "50px", // Add marginBottom to create space
         }}
       >
         Events
@@ -271,6 +301,14 @@ Capture the moment, Launch the reel…!`,
             flexDirection: "column",
             alignItems: "center",
             gap: "20px",
+          }),
+          ...(isTablet && {
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "20px",
+            marginTop:"20px",
+            marginBottom: "100px",
           }),
         }}
       >
@@ -300,13 +338,14 @@ Capture the moment, Launch the reel…!`,
                 ? "translateY(20px)"
                 : "rotateY(90deg)",
               transition: "transform 0.6s ease-in-out, opacity 0.6s ease-in-out",
-              ...(!isMobile && {
-                position: "absolute",
-                top: card.marginTop,
-                left: card.marginLeft,
-                height: "335px",
-                width: "220px",
-              }),
+              ...(!isMobile &&
+                !isTablet && {
+                  position: "absolute",
+                  top: card.marginTop,
+                  left: card.marginLeft,
+                  height: "335px",
+                  width: "220px",
+                }),
               ...(isMobile && {
                 position: "relative",
                 width: "85%",
@@ -315,6 +354,14 @@ Capture the moment, Launch the reel…!`,
                 transform: isInView[index]
                   ? "translateY(0)"
                   : "translateY(20px)",
+              }),
+              ...(isTablet && {
+                position: "relative",
+                width: "45%",
+                height: "300px",
+                margin: "10px",
+                transform: isInView[index] ? "translateY(0)" : "translateY(20px)",
+                backgroundSize: "cover",
               }),
             }}
             onMouseEnter={(e) => {
@@ -338,7 +385,7 @@ Capture the moment, Launch the reel…!`,
                 top: card.titlePosition.top,
                 left: card.titlePosition.left,
                 fontSize: "1.0rem",
-                color: "gold",
+                color: "#E9E083",
                 fontFamily: "'DcFandom', sans-serif",
                 backgroundColor: "rgba(0, 0, 0, 0.6)",
                 padding: "5px 10px",
@@ -378,253 +425,251 @@ Capture the moment, Launch the reel…!`,
 
       {/* Popup */}
       {activePopup && (
-  <div
-    style={{
-      position: "fixed",
-      top: "0",
-      left: "0",
-      width: "100vw",
-      height: "100vh",
-      backgroundColor: "rgba(0, 0, 0, 0.7)",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      zIndex: "1000",
-    }}
-    onClick={() => setActivePopup(null)}
-  >
-    <div
-      className="popup-content"
-      style={{
-        backgroundImage: "url(/images/bgf.jpg)",
-        padding: isMobile ? "10px" : "20px",
-        borderRadius: "10px",
-        width: isMobile ? "90%" : "70%",
-        height: isMobile ? "80%" : "70%",
-        color: "white",
-        maxHeight: "90vh",
-        overflow: "auto",
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between", // Ensure content and button are spaced properly
-      }}
-      onClick={(e) => e.stopPropagation()}
-    >
-      <div
-        style={{
-          position: "absolute",
-          top: "10px",
-          right: "10px",
-          fontSize: isMobile ? "20px" : "30px",
-          cursor: "pointer",
-          color: "white",
-        }}
-        onClick={() => setActivePopup(null)}
-      >
-        &times;
-      </div>
+        <div
+          style={{
+            position: "fixed",
+            top: "0",
+            left: "0",
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: "1000",
+          }}
+          onClick={() => setActivePopup(null)}
+        >
+          <div
+            className="popup-content"
+            style={{
+              backgroundImage: "url(/images/bgf.jpg)",
+              padding: isMobile ? "10px" : "20px",
+              borderRadius: "10px",
+              width: isMobile ? "90%" : isTablet ? "80%" : "70%",
+              height: isMobile ? "80%" : isTablet ? "70%" : "70%",
+              color: "white",
+              maxHeight: "90vh",
+              overflow: "auto",
+              position: "relative",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                fontSize: isMobile ? "20px" : "30px",
+                cursor: "pointer",
+                color: "white",
+              }}
+              onClick={() => setActivePopup(null)}
+            >
+              &times;
+            </div>
 
-      <div style={{ textAlign: "center", marginTop: "20px" }}>
-        <h2
-          style={{
-            marginBottom: "10px",
-            color: "white",
-            fontFamily: "'AvengersFont', sans-serif",
-            fontSize: isMobile ? "24px" : "40px",
-            wordSpacing: "7px",
-            letterSpacing: "2.5px",
-          }}
-        >
-          {cardsData.find((card) => card.id === activePopup).title}
-        </h2>
-        <p style={{ color: "white", fontSize: isMobile ? "14px" : "16px" }}>
-          {cardsData.find((card) => card.id === activePopup).content}
-        </p>
-        <h3 style={{ color: "white", fontSize: isMobile ? "18px" : "24px" }}>
-          Rules:
-        </h3>
-        <p
-          style={{
-            whiteSpace: "pre-line",
-            fontWeight: "bold",
-            fontStyle: "italic",
-            color: "white",
-            textAlign: "start",
-            fontSize: isMobile ? "12px" : "14px",
-            padding: isMobile ? "0 10px" : "0 20px",
-          }}
-        >
-          {cardsData.find((card) => card.id === activePopup).rules}
-        </p>
-      </div>
-
-      <div
-        style={{
-          position: "relative",
-          width: "100%",
-          textAlign: "center",
-          marginTop: "20px", // Add some space above the coordinators
-        }}
-      >
-        <h3
-          style={{
-            color: "white",
-            marginTop: "0px",
-            fontSize: isMobile ? "18px" : "24px",
-          }}
-        >
-          Event Coordinators:
-        </h3>
-        {cardsData
-          .find((card) => card.id === activePopup)
-          .coordinators.map((coordinator, index) => (
-            <div key={index}>
-              <p
+            <div style={{ textAlign: "center", marginTop: "20px" }}>
+              <h2
                 style={{
+                  marginBottom: "10px",
                   color: "white",
-                  fontSize: isMobile ? "12px" : "14px",
+                  fontFamily: "'AvengersFont', sans-serif",
+                  fontSize: isMobile ? "24px" : isTablet ? "32px" : "40px",
+                  wordSpacing: "7px",
+                  letterSpacing: "2.5px",
                 }}
               >
-                {coordinator.name} - {coordinator.number}
+                {cardsData.find((card) => card.id === activePopup).title}
+              </h2>
+              <p style={{ color: "white", fontSize: isMobile ? "14px" : "16px" }}>
+                {cardsData.find((card) => card.id === activePopup).content}
+              </p>
+              <h3 style={{ color: "white", fontSize: isMobile ? "18px" : "24px" }}>
+                Rules:
+              </h3>
+              <p
+                style={{
+                  whiteSpace: "pre-line",
+                  fontWeight: "bold",
+                  fontStyle: "italic",
+                  color: "white",
+                  textAlign: "start",
+                  fontSize: isMobile ? "12px" : "14px",
+                  padding: isMobile ? "0 10px" : "0 20px",
+                }}
+              >
+                {cardsData.find((card) => card.id === activePopup).rules}
               </p>
             </div>
-          ))}
-      </div>
 
-     {/* Register Button Container */}
-<div
-  style={{
-    display: "flex",
-    justifyContent: "center", 
-    width: "100%",
-    marginTop: "20px", 
-    paddingBottom: "20px", 
-  }}
->
-  <Link to="/register" style={{ textDecoration: "none" }}> 
-    <button
-      style={{
-        padding: "12px 24px",
-        backgroundColor: "#2B3044",
-        color: "#ff7576",
-        border: "none",
-        outline: "none",
-        cursor: "pointer",
-        fontSize: isMobile ? "14px" : "16px",
-        fontWeight: "700",
-        lineHeight: "24px",
-        borderRadius: "9px",
-        boxShadow: "0px 1px 2px #2B3044, 0px 4px 16px #2B3044",
-        transformStyle: "preserve-3d",
-        transform: "scale(var(--s, 1)) perspective(600px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))",
-        perspective: "600px",
-        transition: "transform 0.1s",
-      }}
-      onMouseEnter={(e) => {
-        e.target.style.transform = "scale(1.05)";
-      }}
-      onMouseLeave={(e) => {
-        e.target.style.transform = "scale(1)";
-      }}
-      onMouseDown={(e) => {
-        e.target.style.transform = "scale(0.93)";
-      }}
-      onMouseUp={(e) => {
-        e.target.style.transform = "scale(1)";
-      }}
-    >
-      <span
-        style={{
-          background: "linear-gradient(90deg, #866ee7, #ea60da, #ed8f57, #fbd41d, #2cca91)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          backgroundClip: "text",
-          textFillColor: "transparent",
-          display: "block",
-        }}
-      >
-        Register
-      </span>
-    </button>
-  </Link> 
-</div>
-    </div>
-  </div>
-)}
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                textAlign: "center",
+                marginTop: "20px",
+              }}
+            >
+              <h3
+                style={{
+                  color: "white",
+                  marginTop: "0px",
+                  fontSize: isMobile ? "18px" : "24px",
+                }}
+              >
+                Event Coordinators:
+              </h3>
+              {cardsData
+                .find((card) => card.id === activePopup)
+                .coordinators.map((coordinator, index) => (
+                  <div key={index}>
+                    <p
+                      style={{
+                        color: "white",
+                        fontSize: isMobile ? "12px" : "14px",
+                      }}
+                    >
+                      {coordinator.name} - {coordinator.number}
+                    </p>
+                  </div>
+                ))}
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+                marginTop: "20px",
+                paddingBottom: "20px",
+              }}
+            >
+              <Link to="/register" style={{ textDecoration: "none" }}>
+                <button
+                  style={{
+                    padding: "12px 24px",
+                    backgroundColor: "#2B3044",
+                    color: "#ff7576",
+                    border: "none",
+                    outline: "none",
+                    cursor: "pointer",
+                    fontSize: isMobile ? "14px" : "16px",
+                    fontWeight: "700",
+                    lineHeight: "24px",
+                    borderRadius: "9px",
+                    boxShadow: "0px 1px 2px #2B3044, 0px 4px 16px #2B3044",
+                    transformStyle: "preserve-3d",
+                    transform: "scale(var(--s, 1)) perspective(600px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))",
+                    perspective: "600px",
+                    transition: "transform 0.1s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = "scale(1.05)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = "scale(1)";
+                  }}
+                  onMouseDown={(e) => {
+                    e.target.style.transform = "scale(0.93)";
+                  }}
+                  onMouseUp={(e) => {
+                    e.target.style.transform = "scale(1)";
+                  }}
+                >
+                  <span
+                    style={{
+                      background: "linear-gradient(90deg, #866ee7, #ea60da, #ed8f57, #fbd41d, #2cca91)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                      textFillColor: "transparent",
+                      display: "block",
+                    }}
+                  >
+                    Register
+                  </span>
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Updated "Click here for cultural Events" button */}
       <div
-
- style={{
-   position: "absolute",
-   bottom: "20px",
-   left: "50%",
-   transform: "translateX(-50%)",
-   textAlign: "center",
-   width: isMobile ? "90%" : "600px",
-   cursor: "pointer",
-   ...(isMobile && {
-     position: "relative",
-     bottom: "auto",
-     left: "auto",
-     transform: "none",
-     marginTop: "20px",
-     width: "100%",
-     padding: "20px",
-   }),
- }}
->
- <Link
-   to="/Cultural"
-   style={{
-     display: "block",
-     textDecoration: "none",
-     color: "white",
-     borderRadius: "10px",
-     padding: "20px",
-     boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
-     transition: "transform 0.3s ease, box-shadow 0.3s ease",
-     position: "relative", // Required for pseudo-element positioning
-     overflow: "hidden", // Ensure the background image doesn't overflow
-     backgroundImage: "url('/images/sec2.jpg')", // Set background image directly
-     backgroundSize: "cover", // Ensure the image covers the entire button
-     backgroundPosition: "center", // Center the background image
-   }}
-   onMouseEnter={(e) => {
-     e.currentTarget.style.transform = "scale(1.05)";
-     e.currentTarget.style.boxShadow = "0 6px 15px rgba(0, 0, 0, 0.5)";
-   }}
-   onMouseLeave={(e) => {
-     e.currentTarget.style.transform = "scale(1)";
-     e.currentTarget.style.boxShadow = "0 4px 10px rgba(0, 0, 0, 0.3)";
-   }}
- >
-   <h2
-     style={{
-       fontSize: isMobile ? "1.5rem" : "1.8rem", // Adjust font size for mobile
-       color: "red",
-       fontWeight: "bold",
-       marginBottom: "10px",
-       textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-       fontFamily: "'AvengersFont', sans-serif", // Add your desired font family
-       wordSpacing: "7px",
-       letterSpacing: "1.9px",
-     }}
-   >
-     Cultural Events
-   </h2>
-   <p
-     style={{
-       fontSize: isMobile ? "0.7rem" : "0.8rem", // Adjust font size for mobile
-       color: "white",
-       textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)",
-     }}
-   >
-     Click here and explore our exciting cultural events!
-   </p>
- </Link>
-</div>
+        style={{
+          position: "absolute",
+          bottom: "20px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          textAlign: "center",
+          width: isMobile ? "90%" : "600px",
+          cursor: "pointer",
+          ...(isMobile && {
+            position: "relative",
+            bottom: "auto",
+            left: "auto",
+            transform: "none",
+            marginTop: "20px",
+            width: "100%",
+            padding: "20px",
+          }),
+        }}
+      >
+        <Link
+          to="/Cultural"
+          style={{
+            display: "block",
+            textDecoration: "none",
+            color: "white",
+            borderRadius: "10px",
+            padding: "20px",
+            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
+            transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            position: "relative",
+            overflow: "hidden",
+            backgroundImage: "url('/images/sec2.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "scale(1.05)";
+            e.currentTarget.style.boxShadow = "0 6px 15px rgba(0, 0, 0, 0.5)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "scale(1)";
+            e.currentTarget.style.boxShadow = "0 4px 10px rgba(0, 0, 0, 0.3)";
+          }}
+        >
+          <h2
+            style={{
+              fontSize: isMobile ? "1.5rem" : "1.8rem",
+              color: "red",
+              fontWeight: "bold",
+              marginBottom: "10px",
+              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+              fontFamily: "'AvengersFont', sans-serif",
+              wordSpacing: "7px",
+              letterSpacing: "1.9px",
+            }}
+          >
+            Cultural Events
+          </h2>
+          <p
+            style={{
+              fontSize: isMobile ? "0.7rem" : "0.8rem",
+              color: "white",
+              textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)",
+            }}
+          >
+            Click here and explore our exciting cultural events!
+          </p>
+        </Link>
+      </div>
     </section>
   );
 };

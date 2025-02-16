@@ -15,7 +15,7 @@ const verifyRazorpaySignature = (order_id, payment_id, signature) => {
 // Function to register user to DB after payment validation
 const registerUserToDB = async (req, res) => {
   try {
-    const { name, phone, collegeName, course, transactionId, events, eventDetails, totalAmount, razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+    const { name, phone, collegeName, course, hodName, hodPhone, transactionId, events, eventDetails, totalAmount, razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
     // Validate Razorpay signature
     if (!verifyRazorpaySignature(razorpay_order_id, razorpay_payment_id, razorpay_signature)) {
@@ -32,6 +32,8 @@ const registerUserToDB = async (req, res) => {
       phone,
       collegeName,
       course,
+      hodName,
+      hodPhone,
       transactionId,
       events,
       eventDetails,

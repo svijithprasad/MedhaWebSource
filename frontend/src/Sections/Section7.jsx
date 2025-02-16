@@ -83,6 +83,12 @@ const FlipBook = () => {
             <div className="front" onClick={() => handlePageFlip(7)}></div>
             <div className="back" onClick={() => handlePageFlip(6)}></div>
           </div>
+
+          {/* Page 8 */}
+          <div className="page" style={{ '--i': 7 }}>
+            <div className="front" onClick={() => handlePageFlip(8)}></div>
+            <div className="back" onClick={() => handlePageFlip(7)}></div>
+</div>
         </div>
       </div>
 
@@ -196,25 +202,131 @@ const FlipBook = () => {
         .page:nth-child(6) .back { background-image: url('/images/12.jpg'); }
         .page:nth-child(7) .front { background-image: url('/images/13.jpg'); }
         .page:nth-child(7) .back { background-image: url('/images/14.jpg'); }
-        .page:nth-child(7) .back { background-image: url('/images/15.jpg'); }
+        .page:nth-child(8) .front { background-image: url('/images/15.jpg'); }
+        
+        
+        
+
+
+
+
+
+        @media (min-width:750px) and (max-width:1300px){
+
+.flipbook-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 65vh;
+        }
+
+        .book {
+          display: flex;
+          width: 700px;
+          height: 550px;
+          pointer-events: none;
+          transform-style: preserve-3d;
+          transition: translate 1s;
+          translate: calc(min(var(--c), 1) * 50%) 0%;
+          rotate: 1 0 0 30deg;
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .page {
+          --z: 5px;
+
+          flex: none;
+          display: flex;
+          width: 100%;
+          pointer-events: all;
+          user-select: none;
+          transform-style: preserve-3d;
+          border: 1px solid #0008;
+          transform-origin: left center;
+          transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1),
+              rotate 1s cubic-bezier(0.4, 0, 0.2, 1) calc((min(var(--i), var(--c)) - max(var(--i), var(--c))) * 50ms);
+          translate: calc(var(--i) * -100%) 0px 0px;
+          transform: translateZ(calc((var(--c) - var(--i) - 0.5) * var(--z)));
+          rotate: 0 1 0 calc(clamp(0, var(--c) - var(--i), 1) * -180deg);
+        }
+
+        .front,
+        .back {
+          flex: none;
+          width: 100%;
+          height: 100%;
+          padding: 5rem;
+          backface-visibility: hidden;
+          background-size: cover;
+          background-position: center;
+          
+        }
+
+        .back {
+          translate: -100% 0;
+          rotate: 0 1 0 180deg;
+        }
+
+        /* Desktop Background Images (Landscape) */
+        .page:nth-child(1) .front { background-image: url('/images/1.jpg'); }
+        .page:nth-child(1) .back { background-image: url('/images/2.jpg'); }
+        .page:nth-child(2) .front { background-image: url('/images/3.jpg'); }
+        .page:nth-child(2) .back { background-image: url('/images/4.jpg'); }
+        .page:nth-child(3) .front { background-image: url('/images/5.jpg'); }
+        .page:nth-child(3) .back { background-image: url('/images/6.jpg'); }
+        .page:nth-child(4) .front { background-image: url('/images/7.jpg'); }
+        .page:nth-child(4) .back { background-image: url('/images/8.jpg'); }
+        .page:nth-child(5) .front { background-image: url('/images/9.jpg'); }
+        .page:nth-child(5) .back { background-image: url('/images/10.jpg'); }
+        .page:nth-child(6) .front { background-image: url('/images/11.jpg'); }
+        .page:nth-child(6) .back { background-image: url('/images/12.jpg'); }
+        .page:nth-child(7) .front { background-image: url('/images/13.jpg'); }
+        .page:nth-child(7) .back { background-image: url('/images/14.jpg'); }
+        .page:nth-child(8) .front { background-image: url('/images/15.jpg'); }
+        
+        .page {
+      width: 100%; 
+      height:90% ; 
+    
+  }
+
+  .front,
+  .back {
+    background-size: cover; /* Ensure images fit properly */
+    background-position: center; /* Center the images */
+    
+  }
+
+
+  }
+          @media (min-width: 768px) and (max-width: 1024px) {
+          .book {
+            width: 400px; /* Reduce the size for tablets */
+            height: 350px; /* Reduce the size for tablets */
+            rotate: 1 0 0 30deg; /* Keep the same rotation as desktop */
+          }
+        }
+
 
         /* Mobile Background Images (Portrait) */
-        @media (max-width: 768px) {
+        @media (max-width: 750px) {
           .page:nth-child(1) .front { background-image: url('/images/pp1.jpg'); }
           .page:nth-child(1) .back { background-image: url('/images/pp2.jpg'); }
           .page:nth-child(2) .front { background-image: url('/images/pp3.jpg'); }
           .page:nth-child(2) .back { background-image: url('/images/pp4.jpg'); }
           .page:nth-child(3) .front { background-image: url('/images/pp5.jpg'); }
           .page:nth-child(3) .back { background-image: url('/images/pp6.jpg'); }
-          .page:nth-child(4) .front { background-image: url('/images/pp7jpgg'); }
+          .page:nth-child(4) .front { background-image: url('/images/pp7.jpg'); }
           .page:nth-child(4) .back { background-image: url('/images/pp8.jpg'); }
           .page:nth-child(5) .front { background-image: url('/images/pp9.jpg'); }
           .page:nth-child(5) .back { background-image: url('/images/pp10.jpg'); }
           .page:nth-child(6) .front { background-image: url('/images/pp11.jpg'); }
           .page:nth-child(6) .back { background-image: url('/images/pp12.jpg'); }
           .page:nth-child(7) .front { background-image: url('/images/pp13.jpg'); }
-          .page:nth-child(7) .back { background-image: url('/images/pp14.jpg'); }
-          .page:nth-child(7) .back { background-image: url('/images/pp15.jpg'); }
+          .page:nth-child(7) .back { background-image: url('/images/pp14.jpg'); } 
+          .page:nth-child(8) .front { background-image: url('/images/pp15.jpg'); }
+          
+          
 
           /* Adjust background size and position for mobile */
           .book {
@@ -227,7 +339,7 @@ const FlipBook = () => {
   }
 
   .page {
-    width: 110%; /* Ensure pages take full width */
+    width: 117%; /* Ensure pages take full width */
     height: 100%; /* Ensure pages take full height */
     
   }
@@ -241,7 +353,7 @@ const FlipBook = () => {
         }
 
         /* Responsive adjustments */
-        @media (max-width: 768px) {
+        @media (max-width: 750px) {
           .book {
             width: 520px;
             height: 220px;
@@ -268,8 +380,6 @@ const FlipBook = () => {
 };
 
 export default FlipBook;
-
-
 
 
 

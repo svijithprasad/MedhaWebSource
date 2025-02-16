@@ -14,7 +14,7 @@ const mongoUrl = process.env.MONGO_URI;
 
 mongoose
   .connect(mongoUrl, {
-    useNewUrlParser: true,
+    // useNewUrlParser: true,
   })
   .then(() => {
     console.log("Connected to database");
@@ -23,7 +23,7 @@ mongoose
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors({ origin: "http://localhost:5173" })); // Allow frontend requests
+app.use(cors()); // Allow frontend requests
 
 app.post("/order", async (req, res) => {
   try {
@@ -36,13 +36,16 @@ app.post("/order", async (req, res) => {
     const order = await razorpay.orders.create(options);
 
     if (!order) {
+      console.log("Order id undefined")
+
       return res.status(500).send("Error");
     }
-
+    console.log("Order generated and sent")
     res.json(order);
   } catch (err) {
     console.log(err);
     res.status(500).send("Error");
+    console.log("ERROR IN ORDER API")
   }
 });
 

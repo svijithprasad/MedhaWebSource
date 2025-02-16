@@ -1,15 +1,31 @@
+@font-face {
+  font-family: 'Avengers';
+  src: url(../../public/fonts/Avengers.ttf);
+}
+
+.event-toggle-buttons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+
+.toggle-button.active {
+  background-color: #0056b3;
+  color: white;
+}
 
 .register-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 130vh;
- /* Light background for better contrast */
+  /* Light background for better contrast */
   padding: 2rem;
   position: relative;
-  
- 
-  top:60px;
+  top: 0px;
 }
 
 .register-card {
@@ -18,14 +34,17 @@
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   width: 100%;
-  max-width: 800px; /* Increased max-width for a wider form */
-  margin-bottom: 40px;
+  max-width: 800px;
+  margin-top: 40px;
+  /* Increased max-width for a wider form */
+  /* margin-bottom: 40px; */
 }
 
 .register-title {
   text-align: center;
   margin-bottom: 2rem;
-  font-Family: AvengersFont, sans-serif;
+  /* letter-spacing: 2px; */
+  font-family: 'Avengers';
   font-size: 2.5rem;
   color: #333;
   font-weight: 600;
@@ -35,26 +54,29 @@
   display: flex;
   flex-direction: column;
 }
-.toggle-button{
-  height:55px;
-  width:130px;
-  font-family:sans-serif;
-  border-radius:5px;
-  color:grey;
-  font-weight:bold;
-  border:2px solid grey;
-  transition:1s ease;
+
+.toggle-button {
+  height: 55px;
+  width: 45%;
+  font-family: sans-serif;
+  border-radius: 5px;
+  color: grey;
+  font-weight: bold;
+  border: 2px solid grey;
+  transition: .4s ease;
 
 }
-.toggle-button:hover{
-  transform:scale(0.9);
+
+.toggle-button:hover {
+  transform: scale(0.9);
 
 }
 
 
 .form-row {
   display: flex;
-  gap: 1.5rem; /* Added gap between form groups */
+  gap: 1.5rem;
+  /* Added gap between form groups */
   margin-bottom: 1.5rem;
 }
 
@@ -88,8 +110,8 @@
 }
 
 .events-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two columns for events */
+  display: flex;
+  /* grid-template-columns: repeat(2, 1fr); Two columns for events */
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
@@ -146,39 +168,42 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .register-card {
-      padding: 1.5rem;
+    padding: 1.5rem;
+    margin-top: 25px;
   }
 
   .register-title {
-      font-size: 2rem;
+    font-size: 2rem;
   }
 
   .form-row {
-      flex-direction: column;
-      gap: 1rem;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .events-grid {
-      grid-template-columns: 1fr; /* Single column for smaller screens */
+    grid-template-columns: 1fr;
+    /* Single column for smaller screens */
   }
 }
 
 @media (max-width: 480px) {
   .register-card {
-      padding: 1rem;
+    padding: 1rem;
+    margin-top: 25px;
   }
 
   .register-title {
-      font-size: 1.75rem;
+    font-size: 1.75rem;
   }
 
   .form-group input,
   .form-group select {
-      padding: 0.5rem;
+    padding: 0.5rem;
   }
 
   .submit-button {
-      padding: 0.75rem;
+    padding: 0.75rem;
   }
 }
 
@@ -191,8 +216,8 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #2d0204, #2e2e2e);
-  
+  /* background: linear-gradient(135deg, #2d0204, #2e2e2e); */
+
   color: #333;
   line-height: 1.6;
 }
@@ -201,22 +226,25 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 60px); /* Adjust for navbar height */
+  min-height: calc(100vh - 60px);
+  /* Adjust for navbar height */
   padding: 2rem;
-  padding-top: 80px; /* Push content below navbar */
-  /* background: linear-gradient(135deg, #f5f7fa, #c3cfe2); */
-  background: linear-gradient(135deg, #3a1a1a, #88afd7);
-  
+  padding-top: 120px;
+  /* Push content below navbar */
+  background-image: "url('/images/bgf.jpg')";
+
+
 }
 
 .register-card {
-  background-image:"url('/images/bgf.jpg')";
+  background-image: "url('/images/bgf.jpg')";
   padding: 2rem;
   border-radius: 15px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   width: 100%;
   max-width: 600px;
   transition: transform 0.3s ease-in-out;
+  margin-top: 40px;
 }
 
 .register-card:hover {
@@ -226,7 +254,8 @@ body {
 .register-title {
   text-align: center;
   margin-bottom: 1.5rem;
-  font-size: 2.2rem;
+  font-size: 2.9rem;
+  /* letter-spacing: 1px; */
   color: #333;
   font-weight: bold;
   letter-spacing: 1px;
@@ -278,14 +307,18 @@ body {
 }
 
 .events-grid {
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
 .event-group {
   background: #f9f9f9;
+  width: 100%;
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 1rem;
@@ -305,6 +338,10 @@ body {
   color: #555;
   cursor: pointer;
   font-weight: 600;
+}
+
+.event-section {
+  width: 100%;
 }
 
 .event-details {
@@ -386,11 +423,25 @@ body {
 }
 
 @keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-5px); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-5px);
+  }
+
+  50% {
+    transform: translateX(5px);
+  }
+
+  75% {
+    transform: translateX(-5px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
 }
 
 @media (max-width: 768px) {
@@ -410,32 +461,54 @@ body {
   .form-group select {
     padding: 0.7rem;
   }
+
   .event-toggle-buttons {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
+    width: 100%;
   }
-  
+
   .toggle-button {
-    padding: 10px 20px;
-    margin: 0 10px;
-    border: none;
-    background-color: #f0f0f0;
-    cursor: pointer;
-    font-size: 16px;
+    height: 55px;
+    width: 45%;
+    font-family: sans-serif;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    color: grey;
+    font-weight: bold;
+    border: 2px solid grey;
+    transition: .4s ease;
   }
-  
+
   .toggle-button.active {
     background-color: #007bff;
     color: white;
   }
-  
+
   .toggle-button:hover {
     background-color: #ddd;
   }
-} 
-.linkcenter{
+}
+
+.linkcenter {
   text-align: center;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
+.spin {
+  animation: spin 1s linear infinite;
+  font-size: 40px;
+  color: blue;
 }

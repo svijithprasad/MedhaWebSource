@@ -119,7 +119,44 @@ const Section2 = () => {
             animation: supermanFlying 3s infinite ease-in-out; /* Apply flying animation */
           }
           /* Media Queries for Responsiveness */
+          @media (max-width: 1024px) {
+            /* Tablet View */
+            #about-section {
+              flex-direction: column;
+            }
+            #about-section > div {
+              flex: none;
+              width: 100%;
+              height: 50vh; /* Adjust height as needed */
+            }
+           
+            #about-section > div:last-child {
+              height: auto;
+              padding: 20px;
+            }
+            .superman-container img {
+              width: 130px !important; /* Reduce Superman image size */
+              height: auto;
+            }
+            .superman-container {
+              right: 1%; /* Adjust position for tablet screens */
+              bottom: 1%;
+            }
+            /* Left Image */
+            div[style*="left: 10%"] img {
+              width: 100px !important; /* Reduce left image size */
+              height: auto;
+            }
+            /* Adjust text size and positioning for tablet screens */
+            h1 {
+              font-size: 35px !important;
+            }
+            p {
+              font-size: 1rem !important;
+            }
+          }
           @media (max-width: 768px) {
+            /* Mobile View */
             .superman-container img {
               width: 60px !important; /* Reduce Superman image size */
               height: auto;
@@ -145,87 +182,13 @@ const Section2 = () => {
               width: 90% !important;
               height: 80% !important;
             }
-            /* Change flex-direction to column for mobile view */
-            #about-section {
-              flex-direction: column;
-            }
-            /* Adjust video and content sections for mobile view */
-            #about-section > div {
-              flex: none;
-              width: 100%;
-              height: 50vh; /* Adjust height as needed */
-            }
-            /* Adjust the content section to appear below the video */
-            #about-section > div:last-child {
-              height: auto;
-              padding: 20px;
-            }
           }
           @media (max-width: 480px) {
-            .superman-container img {
-              width: 100px !important; /* Further reduce Superman image size */
-            }
-            div[style*="left: 1%"] img {
-              width: 150px !important; /* Further reduce left image size */
-            }
-            h1 {
-              font-size: 27px !important;
-            }
-            p {
-              font-size: 0.7rem !important;
-            }
-          }
-        `}
-      </style>
-      <style>
-        {`
-          @media (max-width: 768px) {
-            .superman-container img {
-              width: 100px !important; /* Reduce Superman image size */
-              height: auto;
-            }
-            .superman-container {
-              right: 1%; /* Adjust position for smaller screens */
-              bottom: 1%;
-            }
-            /* Left Image */
-            div[style*="left: 10%"] img {
-              width: 60px !important; /* Reduce left image size */
-              height: auto;
-            }
-            /* Adjust text size and positioning for smaller screens */
-            h1 {
-              font-size: 35px !important;
-            }
-            p {
-              font-size: 0.9rem !important;
-            }
-            /* Adjust the main container for smaller screens */
-            div[style*="width: 70%"] {
-              width: 90% !important;
-              height: 80% !important;
-            }
-            /* Change flex-direction to column for mobile view */
-            #about-section {
-              flex-direction: column;
-            }
-            /* Adjust video and content sections for mobile view */
-            #about-section > div {
-              flex: none;
-              width: 100%;
-              height: 50vh; /* Adjust height as needed */
-            }
-            /* Adjust the content section to appear below the video */
-            #about-section > div:last-child {
-              height: auto;
-              padding: 20px;
-            }
-          }
-          @media (max-width: 480px) {
+            /* Small Mobile View */
             .superman-container img {
               width: 70px !important; /* Further reduce Superman image size */
             }
-            div[style*="left: 10%"] img {
+            div[style*="left: 1%"] img {
               width: 90px !important; /* Further reduce left image size */
             }
             h1 {
@@ -278,7 +241,7 @@ const Section2 = () => {
               objectFit: "cover",
             }}
           >
-            <source src="/videos/dj1.mp4" type="video/mp4" />
+            <source src="/videos/medhavid.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
           {/* Text "DJ Rathan" at the bottom left of the video */}
@@ -415,7 +378,7 @@ const Section2 = () => {
                   }}
                 >
                   The dynamic minds of the MCA department at Shree Devi Institute of
-                  Technology proudly present MEDHA 2k25—a fest like no other, blending
+                  Technology proudly presents MEDHA 2k25—a fest like no other, blending
                   technology and creativity into an extraordinary experience. A grand
                   spectacle like no other, where the tides of innovation and creativity
                   converge in a breathtaking fusion of technology and artistry. Choose your
@@ -434,10 +397,10 @@ const Section2 = () => {
               zIndex: 2,
             }}
           >
-            <img
+            <img 
               src="/images/capa.png"
               alt="Left Image"
-              style={{ width: "150px", height: "auto" }}
+              style={{ width: "170px", height: "auto" }}
             />
           </div>
           {/* Right Image - Superman with Flying Effect */}

@@ -40,12 +40,27 @@ const Section1 = () => {
           }}
         >
           <h3 style={{ fontSize: "1.5rem", color: "#01f9c6" }}>Contact</h3>
-          <p style={{color:'white', margin: "10px 0" }}>Shree Devi Institute Of Technology</p>
-          <p style={{color:'white', margin: "10px 0" }}>Airport Road, Kenjar,</p>
-          <p style={{color:'white', margin: "10px 0" }}>Mangaluru - 575003,</p>
-          <p style={{color:'white', margin: "10px 0" }}>Dakshina Kannada District, Karnataka</p>
+          <p style={{color:'white', margin: "12px 0" }}>Shree Devi Institute Of Technology</p>
+          <p style={{color:'white', margin: "12px 0" }}>Airport Road, Kenjar,</p>
+          <p style={{color:'white', margin: "12px 0" }}>Mangaluru - 575003,</p>
+          <p style={{color:'white', margin: "12px 0" }}>Dakshina Kannada District, Karnataka</p>
           {/* <p style={{color:'white'}}>+91 6361600211</p> */}
-          <p style={{color:'white', margin: "10px 0"  }}>sditmcadept2022@gmail.com</p>
+          <p style={{color:'white', margin: "12px 0"  }}>sditmcadept2022@gmail.com</p>
+          <p style={{ color: 'white', margin: '12px 0', display: 'flex', alignItems: 'center' }}>
+  <i className='bx bxl-instagram' style={{ color: '#01f9c6', fontSize: '24px', marginRight: '5px' }}></i>
+  <a href="https://www.instagram.com/mca_valee?igsh=dG1lNmgycG1rdzN3" target="_blank" style={{ color: "white", textDecoration: "none" }}>
+    @mca_valee
+  </a>
+</p>
+
+<p style={{ color: 'white', margin: '12px 0', display: 'flex', alignItems: 'center' }}>
+  <i className='bx bxl-instagram' style={{ color: '#01f9c6', fontSize: '24px', marginRight: '5px' }}></i>
+  <a href="https://www.instagram.com/medha_sdit?igsh=cTk2Y2RtbTI0MTlx" target="_blank" style={{ color: "white", textDecoration: "none" }}>
+    @medha_sdit
+  </a>
+</p>
+
+
         </div>
 
         {/* Quick Links Section */}

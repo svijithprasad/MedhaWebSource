@@ -8,7 +8,7 @@ const TermsAndConditions = () => {
           Terms and Conditions
         </h1>
         <p style={{ fontSize: '14px', color: '#666', textAlign: 'center', marginBottom: '40px' }}>
-          Last updated: November 13, 2024
+          Last updated: February 12, 2025
         </p>
 
         <section style={{ marginBottom: '40px' }}>
@@ -107,6 +107,7 @@ const TermsAndConditions = () => {
               Razorpay securely processes payments; we do not store or process your payment information
               directly.
             </li>
+            <li>Payment failure from user side will be refunded within 2 to 3 days from the bank and we are not responsible</li>
             <li>
               Razorpay may have its own terms and privacy policies, which govern your use of its services. We
               recommend reviewing these policies for more information.
@@ -211,19 +212,20 @@ const TermsAndConditions = () => {
             <br />
             Shree Devi Institute of Technology
             <br />
-            Kenjar, Near Mangalore International Airport, Karnataka - 574142
+            Kenjar, Near  Mangaluru International Airport, Karnataka - 574142
             <br />
             Email:{" "}
             <a
               href="mailto:Medha@gmail.com"
               style={{ color: '#007BFF', textDecoration: 'none' }}
             >
-              Medha@gmail.com
-            </a>
+       sditmcadept2022@gmail.com
+
+</a>
             <br />
             Phone:{" "}
             <a href="tel:+919741152696" style={{ color: '#007BFF', textDecoration: 'none' }}>
-              +91 9741152696
+              +91 6360724901
             </a>
           </p>
         </section>

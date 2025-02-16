@@ -247,12 +247,12 @@ const Team = () => {
   const cardImages = [
     '/images/c1.PNG',
     '/images/c2.PNG',
+    '/images/c4.PNG',
+    '/images/c5.PNG',
     '/images/c7.PNG',
     '/images/c6.PNG',
     '/images/c3.PNG',
     '/images/c12.PNG',
-    '/images/c4.PNG',
-    '/images/c5.PNG',
     '/images/c9.PNG',
     '/images/c18.PNG',
     '/images/c8.PNG',
@@ -272,8 +272,8 @@ const Team = () => {
 
   return (
     <div style={{ padding: '2rem', textAlign: 'center', paddingBottom: '80px' }}>
-      <h1 style={{ fontFamily: "'AvengersFont', sans-serif", fontSize: "36px", color: '#ED1D24', margin: "60px" }}>
-        
+      <h1 style={{ fontFamily: "'AvengersFont', sans-serif", fontSize: "36px", color: 'grey', marginTop: "60px" }}>
+        .
       </h1>
 
       {/* Card Section */}
@@ -307,7 +307,7 @@ const Team = () => {
         ))}
       </div>
 
-      {/* Media Query for Mobile Responsiveness */}
+      {/* Media Query for Mobile and Tablet Responsiveness */}
       <style>
         {`
           @media (max-width: 768px) {
@@ -331,6 +331,20 @@ const Team = () => {
               width: 400px !important; /* Increase width */
               background-size: 120% !important; 
               background-repeat:no-repeat;/* Zoom in the image */
+            }
+          }
+
+          /* Tablet Responsiveness */
+          @media (min-width: 769px) and (max-width: 1024px) {
+            div[style*="height: 300px; width: 250px;"] {
+              height: 400px !important; /* Slightly larger height for tablets */
+              width: 300px !important; /* Slightly larger width for tablets */
+              
+              margin-top:16px; /* Ensure the image covers the card */
+            }
+
+            .card-container {
+              gap: 25px; /* Reduce gap between cards for tablets */
             }
           }
         `}

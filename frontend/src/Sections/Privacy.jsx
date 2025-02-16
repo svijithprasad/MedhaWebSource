@@ -51,7 +51,7 @@ const PrivacyPolicy = () => {
   return (
     <div style={styles.container}>
       <h1 style={styles.header}>Privacy Policy</h1>
-      <p style={styles.text}>Last updated: November 13, 2024</p>
+      <p style={styles.text}>Last updated: February 12, 2025</p>
 
       <section style={styles.section}>
         <h2 style={styles.sectionHeader}>1. Information We Collect</h2>
@@ -149,17 +149,18 @@ const PrivacyPolicy = () => {
           </p>
           <p style={styles.text}>
             Shree Devi Institute of Technology<br />
-            Kenjar, Near Mangalore International Airport, Karnataka - 574142<br />
+            Kenjar, Near Mangaluru International Airport, Karnataka - 574142<br />
             Email: <a href="mailto:sditmcadept2022@gmail.com
 
 " style={styles.link}>sditmcadept2022@gmail.com
 </a><br />
-            Phone: <a href="tel:+919741152696" style={styles.link}>+91 9741152696</a>
+            Phone: <a href="tel:+916360724901" style={styles.link}>+91 6360724901</a>
           </p>
         </div>
       </section>
     </div>
   );
 };
+
 
 export default PrivacyPolicy;

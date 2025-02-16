@@ -51,7 +51,7 @@ const CulturalEvents = () => {
   const pageTitleStyle = {
     textAlign: 'center',
     fontSize: '3rem',
-    fontFamily: "'AvengersFont', sans-serif",
+    fontFamily: "'Avengers', sans-serif",
     paddingTop: '130px',
     color: "red",
   };
