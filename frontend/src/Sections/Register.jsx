@@ -325,7 +325,7 @@ const Register = () => {
     }
 
     try {
-      const { data: order } = await axios.post("http://localhost:5088/order", {
+      const { data: order } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/order`, {
         events: Object.keys(events).filter((event) => events[event]), // Only send selected events
         culturalEvents: Object.keys(culturalEvents).filter((event) => culturalEvents[event]),
         eventDetails,
@@ -370,7 +370,7 @@ const Register = () => {
             };
 
             // Sending data to backend for validation
-            const result = await axios.post("http://localhost:5088/register", registrationData);
+            const result = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, registrationData);
 
             console.log("Registration Successful:", JSON.stringify(result.data));
             setPaymentSuccess(!paymentSuccess);
