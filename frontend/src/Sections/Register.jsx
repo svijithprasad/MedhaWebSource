@@ -320,29 +320,22 @@ const Register = () => {
 
     // Validate the form before proceeding
     if (!validateForm()) {
-      alert(
-        "Please fill in all required fields and select at least one event."
-      );
+      alert("Please fill in all required fields and select at least one event.");
       return;
     }
 
-    const calculatedAmount = totalAmount * 100;
-
-    const amount = calculatedAmount;
-    const currency = "INR";
-    const receiptId = "receiptId1";
-
     try {
       const { data: order } = await axios.post("http://localhost:5088/order", {
-        amount,
-        currency,
-        receipt: receiptId,
+        events: Object.keys(events).filter((event) => events[event]), // Only send selected events
+        culturalEvents: Object.keys(culturalEvents).filter((event) => culturalEvents[event]),
+        eventDetails,
       });
+
       console.log("Order Data: ", order);
       var options = {
         key: "rzp_test_xjaCfVdnrPK2Q9",
-        amount,
-        currency,
+        amount: order.amount, // Securely received from backend
+        currency: "INR",
         name: "Medha",
         description: "Test Transaction",
         image: "https://example.com/your_logo",
@@ -354,7 +347,6 @@ const Register = () => {
               throw new Error("Invalid Razorpay response");
             }
 
-            // Sending order_id, payment_id, and signature to backend for verification
             const registrationData = {
               name: formData.name,
               phone: formData.phone,
@@ -363,7 +355,7 @@ const Register = () => {
               hodName: formData.hodName,
               hodPhone: formData.hodPhone,
               transactionId: `${response.razorpay_order_id}_${response.razorpay_payment_id}`,
-              events: Object.keys(events).filter((event) => events[event]),
+              events: order.selectedEvents,
               eventDetails: Object.fromEntries(
                 Object.entries(eventDetails).filter(([event, participants]) =>
                   Object.values(participants).some(
@@ -371,17 +363,14 @@ const Register = () => {
                   )
                 )
               ),
-              totalAmount: calculatedAmount / 100,
+              totalAmount: order.amount / 100, // Ensure correct amount is used
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
             };
 
-            // Sending this data to backend for validation and registration
-            const result = await axios.post(
-              "http://localhost:5088/register",
-              registrationData
-            );
+            // Sending data to backend for validation
+            const result = await axios.post("http://localhost:5088/register", registrationData);
 
             console.log("Registration Successful:", JSON.stringify(result.data));
             setPaymentSuccess(!paymentSuccess);
@@ -406,6 +395,7 @@ const Register = () => {
       console.error("Order creation error:", error);
     }
   };
+
 
 
   const downloadPaymentDetails = () => {
