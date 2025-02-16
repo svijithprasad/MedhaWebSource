@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+     "dev": "concurrently \"node ./backend/app.js\" \"npm run build --prefix ./frontend\""
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,8 @@
     "url": "https://github.com/svijithprasad/MedhaWebSource/issues"
   },
   "homepage": "https://github.com/svijithprasad/MedhaWebSource#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
 }
