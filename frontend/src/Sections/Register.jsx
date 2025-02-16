@@ -408,25 +408,75 @@ const Register = () => {
   };
 
 
-  // Function to download payment details as PDF
   const downloadPaymentDetails = () => {
     const input = document.getElementById("payment-success-popup");
+    const downloadButton = input.querySelector("button"); // Select the button inside the popup
 
-    html2canvas(input, { scale: 2 }).then((canvas) => {
+    // Hide the button before capturing
+    if (downloadButton) {
+      downloadButton.style.display = "none";
+    }
+
+    html2canvas(input, { scale: 3 }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "mm", "a4");
+
       const imgWidth = 210; // A4 width in mm
+      const pageHeight = 297; // A4 height in mm
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      const canvasWidth = canvas.width;
+      const canvasHeight = canvas.height;
+      const pageCanvas = document.createElement("canvas");
+      const pageCtx = pageCanvas.getContext("2d");
+
+      pageCanvas.width = canvasWidth;
+      pageCanvas.height = (pageHeight * canvasWidth) / imgWidth;
+
+      while (heightLeft > 0) {
+        pageCtx.clearRect(0, 0, pageCanvas.width, pageCanvas.height);
+        pageCtx.drawImage(
+          canvas,
+          0,
+          position * (canvas.width / imgWidth),
+          canvas.width,
+          pageCanvas.height,
+          0,
+          0,
+          pageCanvas.width,
+          pageCanvas.height
+        );
+
+        const pageData = pageCanvas.toDataURL("image/png");
+        if (position === 0) {
+          pdf.addImage(pageData, "PNG", 0, 0, imgWidth, pageHeight);
+        } else {
+          pdf.addPage();
+          pdf.addImage(pageData, "PNG", 0, 0, imgWidth, pageHeight);
+        }
+
+        heightLeft -= pageHeight;
+        position += pageHeight;
+      }
+
+      // Restore the button after capturing
+      if (downloadButton) {
+        downloadButton.style.display = "block";
+      }
+
       pdf.save("payment_details.pdf");
     });
   };
+
 
   // Payment success popup
   if (paymentSuccess) {
     return (
       <div
+
         className="register-container"
         style={{
           display: "flex",
