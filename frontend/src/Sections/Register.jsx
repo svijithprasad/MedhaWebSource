@@ -277,201 +277,197 @@ const Register = () => {
 
 
 // const paymentHandler = async (e) => {
-//   setPaymentLoading(true);
-//   e.preventDefault();
-
-//   // Validate the form before proceeding
-//   if (!validateForm()) {
-//     alert("Please fill in all required fields and select at least one event.");
-//     setPaymentLoading(false); // Reset loading state
-//     return;
-//   }
-
-//   try {
-//     const { data: order } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/order`, {
-//       events: Object.keys(events).filter((event) => events[event]), // Only send selected events
-//       culturalEvents: Object.keys(culturalEvents).filter((event) => culturalEvents[event]),
-//       eventDetails,
-//     });
-
-//     console.log("Order Data: ", order);
-    
-//     var options = {
-//       key: `${import.meta.env.VITE_RAZORPAY_ID}`,
-//       amount: order.amount, // Securely received from backend
-//       currency: "INR",
-//       name: "Medha",
-//       description: "Transaction",
-//       image: "https://example.com/your_logo",
-//       order_id: order.id,
-//       handler: async function (response) {
-//         try {
-//           console.log("Razorpay Response:", response);
-//           if (!response.razorpay_order_id || !response.razorpay_payment_id) {
-//             throw new Error("Invalid Razorpay response");
-//           }
-
-//           const registrationData = {
-//             name: formData.name,
-//             phone: formData.phone,
-//             collegeName: formData.collegeName,
-//             course: formData.course,
-//             hodName: formData.hodName,
-//             hodPhone: formData.hodPhone,
-//             transactionId: `${response.razorpay_order_id}_${response.razorpay_payment_id}`,
-//             events: order.selectedEvents,
-//             eventDetails: Object.fromEntries(
+//     setPaymentLoading(true);
+//     e.preventDefault();
+  
+//     if (!validateForm()) {
+//       alert("Please fill in all required fields and select at least one event.");
+//       setPaymentLoading(false);
+//       return;
+//     }
+  
+//     try {
+//       const selectedEvents = Object.keys(events).filter((event) => events[event]);
+  
+//       const { data: order } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/order`, {
+//         events: selectedEvents,
+//         culturalEvents: Object.keys(culturalEvents).filter((event) => culturalEvents[event]),
+//         eventDetails,
+//       });
+  
+//       console.log("Order Data: ", order);
+  
+//       const registrationData = {
+//         name: formData.name,
+//         phone: formData.phone,
+//         collegeName: formData.collegeName,
+//         course: formData.course,
+//         hodName: formData.hodName,
+//         hodPhone: formData.hodPhone,
+//         transactionId: `PENDING_${Date.now()}`,
+//         events: selectedEvents,
+//         eventDetails: eventDetails
+//           ? Object.fromEntries(
 //               Object.entries(eventDetails).filter(([event, participants]) =>
 //                 Object.values(participants).some((participant) => participant.trim() !== "")
 //               )
-//             ),
-//             totalAmount: order.amount / 100, // Ensure correct amount is used
-//             razorpay_order_id: response.razorpay_order_id,
-//             razorpay_payment_id: response.razorpay_payment_id,
-//             razorpay_signature: response.razorpay_signature,
-//           };
-
-//           // Sending data to backend for validation
-//           const result = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, registrationData);
-
-//           console.log("Registration Successful:", JSON.stringify(result.data));
-//           setPaymentSuccess(!paymentSuccess);
-//           setRegisteredDetails(result.data);
-//           setPaymentLoading(false); // Stop loading on success
-//         } catch (error) {
-//           console.error("Payment validation error:", error);
-//           setPaymentLoading(false); // Stop loading on error
-//         }
-//       },
-//       notes: { address: "Razorpay Corporate Office" },
-//       theme: { color: "#3399cc" },
-//       modal: {
-//         ondismiss: function () {
-//           console.warn("User closed the payment gateway.");
-//           alert("Payment was cancelled. Please try again.");
-//           setPaymentLoading(false); // Reset loading state
+//             )
+//           : {},
+//         totalAmount: order.amount / 100,
+//       };
+  
+//       console.log("Captured Registration Data Before Payment:", registrationData);
+  
+//       var options = {
+//         key: `${import.meta.env.VITE_RAZORPAY_ID}`,
+//         amount: order.amount,
+//         currency: "INR",
+//         name: "Medha",
+//         description: "Transaction",
+//         image: "https://example.com/your_logo",
+//         order_id: order.id,
+//         handler: async function (response) {
+//           try {
+//             console.log("Razorpay Response:", response);
+//             if (!response.razorpay_order_id || !response.razorpay_payment_id || !response.razorpay_signature) {
+//               throw new Error("Invalid Razorpay response");
+//             }
+  
+//             registrationData.transactionId = `${response.razorpay_order_id}_${response.razorpay_payment_id}`;
+//             registrationData.razorpay_order_id = response.razorpay_order_id;
+//             registrationData.razorpay_payment_id = response.razorpay_payment_id;
+//             registrationData.razorpay_signature = response.razorpay_signature;
+  
+//             const result = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, registrationData);
+  
+//             console.log("Registration Successful:", JSON.stringify(result.data));
+//             setPaymentSuccess((prev) => !prev);
+//             setRegisteredDetails(result.data);
+//           } catch (error) {
+//             console.error("Payment validation error:", error.response ? error.response.data : error.message);
+//             alert("Registration failed: " + (error.response?.data?.message || error.message));
+//           }
 //         },
-//       },
-//     };
-
-//     var rzp1 = new window.Razorpay(options);
-
-//     rzp1.on("payment.failed", function (response) {
-//       console.error("Payment failed", response.error);
-//       alert(response.error.description);
-//       setPaymentLoading(false); // Reset loading state
-//     });
-
-//     rzp1.open();
-//   } catch (error) {
-//     console.error("Order creation error:", error);
-//     setPaymentLoading(false); // Reset loading on error
-//   }
-// };
+//         notes: { address: "Razorpay Corporate Office" },
+//         theme: { color: "#3399cc" },
+//         modal: {
+//           ondismiss: function () {
+//             console.warn("User closed the payment gateway.");
+//             alert("Payment was cancelled. Please try again.");
+//           },
+//           escape: false,
+//           backdropclose: false,
+//         },
+//       };
+  
+//       var rzp1 = new window.Razorpay(options);
+  
+//       rzp1.on("payment.failed", function (response) {
+//         console.error("Payment failed", response.error);
+//         alert(response.error.description);
+//       });
+  
+//       await new Promise((resolve, reject) => {
+//         rzp1.on("payment.success", resolve);
+//         rzp1.on("payment.failed", reject);
+//         rzp1.open();
+//       });
+//     } catch (error) {
+//       console.error("Order creation error:", error.response ? error.response.data : error.message);
+//     } finally {
+//       setPaymentLoading(false);
+//     }
+//   };
+  
 
 const paymentHandler = async (e) => {
-    setPaymentLoading(true);
-    e.preventDefault();
-  
-    if (!validateForm()) {
-      alert("Please fill in all required fields and select at least one event.");
-      setPaymentLoading(false);
-      return;
-    }
-  
-    try {
-      const selectedEvents = Object.keys(events).filter((event) => events[event]);
-  
-      const { data: order } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/order`, {
-        events: selectedEvents,
-        culturalEvents: Object.keys(culturalEvents).filter((event) => culturalEvents[event]),
-        eventDetails,
-      });
-  
-      console.log("Order Data: ", order);
-  
-      const registrationData = {
-        name: formData.name,
-        phone: formData.phone,
-        collegeName: formData.collegeName,
-        course: formData.course,
-        hodName: formData.hodName,
-        hodPhone: formData.hodPhone,
-        transactionId: `PENDING_${Date.now()}`,
-        events: selectedEvents,
-        eventDetails: eventDetails
-          ? Object.fromEntries(
-              Object.entries(eventDetails).filter(([event, participants]) =>
-                Object.values(participants).some((participant) => participant.trim() !== "")
-              )
+  setPaymentLoading(true);
+  e.preventDefault();
+
+  if (!validateForm()) {
+    alert("Please fill in all required fields and select at least one event.");
+    setPaymentLoading(false);
+    return;
+  }
+
+  try {
+    const selectedEvents = Object.keys(events).filter((event) => events[event]);
+
+    // **STEP 1: Register user BEFORE payment**
+    const registrationData = {
+      name: formData.name,
+      phone: formData.phone,
+      collegeName: formData.collegeName,
+      course: formData.course,
+      hodName: formData.hodName,
+      hodPhone: formData.hodPhone,
+      transactionId: `PENDING_${Date.now()}`, // Temporary Transaction ID
+      events: selectedEvents,
+      eventDetails: eventDetails
+        ? Object.fromEntries(
+            Object.entries(eventDetails).filter(([event, participants]) =>
+              Object.values(participants).some((participant) => participant.trim() !== "")
             )
-          : {},
-        totalAmount: order.amount / 100,
-      };
-  
-      console.log("Captured Registration Data Before Payment:", registrationData);
-  
-      var options = {
-        key: `${import.meta.env.VITE_RAZORPAY_ID}`,
-        amount: order.amount,
-        currency: "INR",
-        name: "Medha",
-        description: "Transaction",
-        image: "https://example.com/your_logo",
-        order_id: order.id,
-        handler: async function (response) {
-          try {
-            console.log("Razorpay Response:", response);
-            if (!response.razorpay_order_id || !response.razorpay_payment_id || !response.razorpay_signature) {
-              throw new Error("Invalid Razorpay response");
-            }
-  
-            registrationData.transactionId = `${response.razorpay_order_id}_${response.razorpay_payment_id}`;
-            registrationData.razorpay_order_id = response.razorpay_order_id;
-            registrationData.razorpay_payment_id = response.razorpay_payment_id;
-            registrationData.razorpay_signature = response.razorpay_signature;
-  
-            const result = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, registrationData);
-  
-            console.log("Registration Successful:", JSON.stringify(result.data));
-            setPaymentSuccess((prev) => !prev);
-            setRegisteredDetails(result.data);
-          } catch (error) {
-            console.error("Payment validation error:", error.response ? error.response.data : error.message);
-            alert("Registration failed: " + (error.response?.data?.message || error.message));
+          )
+        : {},
+    };
+
+    const { data: savedRecord } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, registrationData);
+    console.log("User registered before payment:", savedRecord);
+
+    // **STEP 2: Create Razorpay Order**
+    const { data: order } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/order`, {
+      registrationId: savedRecord._id, // Store registration ID for updating later
+      events: selectedEvents,
+      culturalEvents: Object.keys(culturalEvents).filter((event) => culturalEvents[event]),
+      eventDetails,
+    });
+
+    console.log("Order Data: ", order);
+
+    var options = {
+      key: `${import.meta.env.VITE_RAZORPAY_ID}`,
+      amount: order.amount,
+      currency: "INR",
+      name: "Medha",
+      description: "Transaction",
+      order_id: order.id,
+      handler: async function (response) {
+        try {
+          console.log("Razorpay Response:", response);
+          if (!response.razorpay_order_id || !response.razorpay_payment_id || !response.razorpay_signature) {
+            throw new Error("Invalid Razorpay response");
           }
-        },
-        notes: { address: "Razorpay Corporate Office" },
-        theme: { color: "#3399cc" },
-        modal: {
-          ondismiss: function () {
-            console.warn("User closed the payment gateway.");
-            alert("Payment was cancelled. Please try again.");
-          },
-          escape: false,
-          backdropclose: false,
-        },
-      };
-  
-      var rzp1 = new window.Razorpay(options);
-  
-      rzp1.on("payment.failed", function (response) {
-        console.error("Payment failed", response.error);
-        alert(response.error.description);
-      });
-  
-      await new Promise((resolve, reject) => {
-        rzp1.on("payment.success", resolve);
-        rzp1.on("payment.failed", reject);
-        rzp1.open();
-      });
-    } catch (error) {
-      console.error("Order creation error:", error.response ? error.response.data : error.message);
-    } finally {
-      setPaymentLoading(false);
-    }
-  };
-  
+
+          // **STEP 3: Update transaction details in DB**
+          const updateData = {
+            registrationId: savedRecord._id,
+            transactionId: `${response.razorpay_order_id}_${response.razorpay_payment_id}`,
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+          };
+
+          const result = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/update-transaction`, updateData);
+          console.log("Updated Registration:", result.data);
+          setPaymentSuccess((prev) => !prev);
+          setRegisteredDetails(result.data);
+        } catch (error) {
+          console.error("Payment validation error:", error.response ? error.response.data : error.message);
+          alert("Registration failed: " + (error.response?.data?.message || error.message));
+        }
+      },
+      theme: { color: "#3399cc" },
+    };
+
+    var rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  } catch (error) {
+    console.error("Order creation error:", error.response ? error.response.data : error.message);
+  } finally {
+    setPaymentLoading(false);
+  }
+};
 
 
 
