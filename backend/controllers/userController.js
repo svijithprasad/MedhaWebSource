@@ -15,18 +15,9 @@ const verifyRazorpaySignature = (order_id, payment_id, signature) => {
 // Function to register user to DB after payment validation
 const registerUserToDB = async (req, res) => {
   try {
-    const { name, phone, collegeName, course, hodName, hodPhone, transactionId, events, eventDetails, totalAmount, razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+    const { name, phone, collegeName, course, hodName, hodPhone, events, eventDetails, totalAmount } = req.body;
 
-    // Validate Razorpay signature
-    if (!verifyRazorpaySignature(razorpay_order_id, razorpay_payment_id, razorpay_signature)) {
-      return res.status(400).json({ message: "Payment verification failed!" });
-    }
-
-    const existingUser = await UserSchema.findOne({ transactionId });
-    if (existingUser) {
-      return res.status(400).json({ message: "Transaction ID already exists!" });
-    }
-
+    // Save user with a temporary pending transaction ID
     const newUser = new UserSchema({
       name,
       phone,
@@ -34,17 +25,18 @@ const registerUserToDB = async (req, res) => {
       course,
       hodName,
       hodPhone,
-      transactionId,
+      transactionId: `PENDING_${Date.now()}`, // Mark as pending
       events,
       eventDetails,
       totalAmount,
     });
 
-    await newUser.save();
-    res.status(201).json({ message: "User registered successfully!", user: newUser });
+    const savedRecord = await newUser.save();
+
+    res.status(201).json(savedRecord); // Send back to frontend
   } catch (error) {
-    console.error("Error registering user:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    console.error("Error in registration:", error);
+    res.status(500).json({ message: "Internal Server Error", error: error.message });
   }
 };
 
