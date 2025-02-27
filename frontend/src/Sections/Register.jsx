@@ -9,7 +9,7 @@ const Register = () => {
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [registeredDetails, setRegisteredDetails] = useState();
   const [totalAmount, setTotalAmount] = useState(0);
-  const [paymentLoading, setPaymentLoading] = useState(true);
+  const [paymentLoading, setPaymentLoading] = useState(false);
   const [showOtherCollege, setShowOtherCollege] = useState(false);
   const [otherCollegeName, setOtherCollegeName] = useState("");
   useEffect(() => {
@@ -209,192 +209,269 @@ const Register = () => {
 
     // Validate basic form fields
     if (!formData.name) newErrors.name = "Head Name is required";
-    if (!formData.phone) newErrors.phone = "Head Phone no is required";
+
+    // Validate phone numbers (10 digits)
+    const phoneRegex = /^\d{10}$/;
+    if (!formData.phone) {
+        newErrors.phone = "Head Phone no is required";
+    } else if (!phoneRegex.test(formData.phone)) {
+        newErrors.phone = "Invalid phone number (must be 10 digits)";
+    }
+
     if (!formData.collegeName)
-      newErrors.collegeName = "College Name is required";
+        newErrors.collegeName = "College Name is required";
 
     // Validate at least one event is selected
-    const isAnyTechnicalEventSelected = Object.values(events).some(
-      (event) => event
-    );
-    const isAnyCulturalEventSelected = Object.values(culturalEvents).some(
-      (event) => event
-    );
+    const isAnyTechnicalEventSelected = Object.values(events).some(event => event);
+    const isAnyCulturalEventSelected = Object.values(culturalEvents).some(event => event);
 
     if (!isAnyTechnicalEventSelected && !isAnyCulturalEventSelected) {
-      newErrors.events = "At least one event must be selected";
+        newErrors.events = "At least one event must be selected";
     }
 
     // Validate participant details for selected technical events
-    Object.keys(events).forEach((event) => {
-      if (events[event]) {
-        const participants = eventDetails[event];
-        if (event === "gaming") {
-          // Gaming requires 4 participants
-          if (!participants.participant1)
-            newErrors[`${event}-participant1`] = "Participant 1 is required";
-          if (!participants.participant2)
-            newErrors[`${event}-participant2`] = "Participant 2 is required";
-          if (!participants.participant3)
-            newErrors[`${event}-participant3`] = "Participant 3 is required";
-          if (!participants.participant4)
-            newErrors[`${event}-participant4`] = "Participant 4 is required";
-        } else if (event === "itManager") {
-          // IT Manager requires only 1 participant
-          if (!participants.participant1)
-            newErrors[`${event}-participant1`] = "Participant 1 is required";
-        } else {
-          // Other events require 2 participants
-          if (!participants.participant1)
-            newErrors[`${event}-participant1`] = "Participant 1 is required";
-          if (!participants.participant2)
-            newErrors[`${event}-participant2`] = "Participant 2 is required";
+    Object.keys(events).forEach(event => {
+        if (events[event]) {
+            const participants = eventDetails[event];
+            if (event === "gaming") {
+                if (!participants.participant1) newErrors[`${event}-participant1`] = "Participant 1 is required";
+                if (!participants.participant2) newErrors[`${event}-participant2`] = "Participant 2 is required";
+                if (!participants.participant3) newErrors[`${event}-participant3`] = "Participant 3 is required";
+                if (!participants.participant4) newErrors[`${event}-participant4`] = "Participant 4 is required";
+            } else if (event === "itManager") {
+                if (!participants.participant1) newErrors[`${event}-participant1`] = "Participant 1 is required";
+            } else {
+                if (!participants.participant1) newErrors[`${event}-participant1`] = "Participant 1 is required";
+                if (!participants.participant2) newErrors[`${event}-participant2`] = "Participant 2 is required";
+            }
         }
-      }
     });
 
     // Validate participant details for cultural events
-    Object.keys(culturalEvents).forEach((event) => {
-      if (culturalEvents[event]) {
-        const participants = eventDetails[event];
-        if (event === "adVengers") {
-          // AD-VENGERS requires 5 participants
-          if (!participants.participant1)
-            newErrors[`${event}-participant1`] = "Participant 1 is required";
-          if (!participants.participant2)
-            newErrors[`${event}-participant2`] = "Participant 2 is required";
-          if (!participants.participant3)
-            newErrors[`${event}-participant3`] = "Participant 3 is required";
-          if (!participants.participant4)
-            newErrors[`${event}-participant4`] = "Participant 4 is required";
-          if (!participants.participant5)
-            newErrors[`${event}-participant5`] = "Participant 5 is required";
-        } else if (event === "zenblaze") {
-          // ZENBLAZE requires 8 participants
-          if (!participants.participant1)
-            newErrors[`${event}-participant1`] = "Participant 1 is required";
-          if (!participants.participant2)
-            newErrors[`${event}-participant2`] = "Participant 2 is required";
-          if (!participants.participant3)
-            newErrors[`${event}-participant3`] = "Participant 3 is required";
-          if (!participants.participant4)
-            newErrors[`${event}-participant4`] = "Participant 4 is required";
-          if (!participants.participant5)
-            newErrors[`${event}-participant5`] = "Participant 5 is required";
-          if (!participants.participant6)
-            newErrors[`${event}-participant6`] = "Participant 6 is required";
-          if (!participants.participant7)
-            newErrors[`${event}-participant7`] = "Participant 7 is required";
-          if (!participants.participant8)
-            newErrors[`${event}-participant8`] = "Participant 8 is required";
-        } else if (event === "aura") {
-          // AURA requires only 1 participant
-          if (!participants.participant1)
-            newErrors[`${event}-participant1`] = "Participant 1 is required";
-        } else if (
-          event === "hiddenTrail" ||
-          event === "iris" ||
-          event === "movieQuiz" ||
-          event === "spectra"
-        ) {
-          // These events require 2 participants
-          if (!participants.participant1)
-            newErrors[`${event}-participant1`] = "Participant 1 is required";
-          if (!participants.participant2)
-            newErrors[`${event}-participant2`] = "Participant 2 is required";
+    Object.keys(culturalEvents).forEach(event => {
+        if (culturalEvents[event]) {
+            const participants = eventDetails[event];
+            if (event === "adVengers") {
+                for (let i = 1; i <= 5; i++) {
+                    if (!participants[`participant${i}`])
+                        newErrors[`${event}-participant${i}`] = `Participant ${i} is required`;
+                }
+            } else if (event === "zenblaze") {
+                for (let i = 1; i <= 8; i++) {
+                    if (!participants[`participant${i}`])
+                        newErrors[`${event}-participant${i}`] = `Participant ${i} is required`;
+                }
+            } else if (event === "aura") {
+                if (!participants.participant1) newErrors[`${event}-participant1`] = "Participant 1 is required";
+            } else if (["hiddenTrail", "iris", "movieQuiz", "spectra"].includes(event)) {
+                if (!participants.participant1) newErrors[`${event}-participant1`] = "Participant 1 is required";
+                if (!participants.participant2) newErrors[`${event}-participant2`] = "Participant 2 is required";
+            }
         }
-      }
     });
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+};
 
 
 
+// const paymentHandler = async (e) => {
+//   setPaymentLoading(true);
+//   e.preventDefault();
 
-  //Payment button logic
-  const paymentHandler = async (e) => {
+//   // Validate the form before proceeding
+//   if (!validateForm()) {
+//     alert("Please fill in all required fields and select at least one event.");
+//     setPaymentLoading(false); // Reset loading state
+//     return;
+//   }
+
+//   try {
+//     const { data: order } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/order`, {
+//       events: Object.keys(events).filter((event) => events[event]), // Only send selected events
+//       culturalEvents: Object.keys(culturalEvents).filter((event) => culturalEvents[event]),
+//       eventDetails,
+//     });
+
+//     console.log("Order Data: ", order);
+    
+//     var options = {
+//       key: `${import.meta.env.VITE_RAZORPAY_ID}`,
+//       amount: order.amount, // Securely received from backend
+//       currency: "INR",
+//       name: "Medha",
+//       description: "Transaction",
+//       image: "https://example.com/your_logo",
+//       order_id: order.id,
+//       handler: async function (response) {
+//         try {
+//           console.log("Razorpay Response:", response);
+//           if (!response.razorpay_order_id || !response.razorpay_payment_id) {
+//             throw new Error("Invalid Razorpay response");
+//           }
+
+//           const registrationData = {
+//             name: formData.name,
+//             phone: formData.phone,
+//             collegeName: formData.collegeName,
+//             course: formData.course,
+//             hodName: formData.hodName,
+//             hodPhone: formData.hodPhone,
+//             transactionId: `${response.razorpay_order_id}_${response.razorpay_payment_id}`,
+//             events: order.selectedEvents,
+//             eventDetails: Object.fromEntries(
+//               Object.entries(eventDetails).filter(([event, participants]) =>
+//                 Object.values(participants).some((participant) => participant.trim() !== "")
+//               )
+//             ),
+//             totalAmount: order.amount / 100, // Ensure correct amount is used
+//             razorpay_order_id: response.razorpay_order_id,
+//             razorpay_payment_id: response.razorpay_payment_id,
+//             razorpay_signature: response.razorpay_signature,
+//           };
+
+//           // Sending data to backend for validation
+//           const result = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, registrationData);
+
+//           console.log("Registration Successful:", JSON.stringify(result.data));
+//           setPaymentSuccess(!paymentSuccess);
+//           setRegisteredDetails(result.data);
+//           setPaymentLoading(false); // Stop loading on success
+//         } catch (error) {
+//           console.error("Payment validation error:", error);
+//           setPaymentLoading(false); // Stop loading on error
+//         }
+//       },
+//       notes: { address: "Razorpay Corporate Office" },
+//       theme: { color: "#3399cc" },
+//       modal: {
+//         ondismiss: function () {
+//           console.warn("User closed the payment gateway.");
+//           alert("Payment was cancelled. Please try again.");
+//           setPaymentLoading(false); // Reset loading state
+//         },
+//       },
+//     };
+
+//     var rzp1 = new window.Razorpay(options);
+
+//     rzp1.on("payment.failed", function (response) {
+//       console.error("Payment failed", response.error);
+//       alert(response.error.description);
+//       setPaymentLoading(false); // Reset loading state
+//     });
+
+//     rzp1.open();
+//   } catch (error) {
+//     console.error("Order creation error:", error);
+//     setPaymentLoading(false); // Reset loading on error
+//   }
+// };
+
+const paymentHandler = async (e) => {
     setPaymentLoading(true);
     e.preventDefault();
-
-    // Validate the form before proceeding
+  
     if (!validateForm()) {
       alert("Please fill in all required fields and select at least one event.");
+      setPaymentLoading(false);
       return;
     }
-
+  
     try {
+      const selectedEvents = Object.keys(events).filter((event) => events[event]);
+  
       const { data: order } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/order`, {
-        events: Object.keys(events).filter((event) => events[event]), // Only send selected events
+        events: selectedEvents,
         culturalEvents: Object.keys(culturalEvents).filter((event) => culturalEvents[event]),
         eventDetails,
       });
-
+  
       console.log("Order Data: ", order);
+  
+      const registrationData = {
+        name: formData.name,
+        phone: formData.phone,
+        collegeName: formData.collegeName,
+        course: formData.course,
+        hodName: formData.hodName,
+        hodPhone: formData.hodPhone,
+        transactionId: `PENDING_${Date.now()}`,
+        events: selectedEvents,
+        eventDetails: eventDetails
+          ? Object.fromEntries(
+              Object.entries(eventDetails).filter(([event, participants]) =>
+                Object.values(participants).some((participant) => participant.trim() !== "")
+              )
+            )
+          : {},
+        totalAmount: order.amount / 100,
+      };
+  
+      console.log("Captured Registration Data Before Payment:", registrationData);
+  
       var options = {
-        key: "rzp_test_xjaCfVdnrPK2Q9",
-        amount: order.amount, // Securely received from backend
+        key: `${import.meta.env.VITE_RAZORPAY_ID}`,
+        amount: order.amount,
         currency: "INR",
         name: "Medha",
-        description: "Test Transaction",
+        description: "Transaction",
         image: "https://example.com/your_logo",
         order_id: order.id,
         handler: async function (response) {
           try {
             console.log("Razorpay Response:", response);
-            if (!response.razorpay_order_id || !response.razorpay_payment_id) {
+            if (!response.razorpay_order_id || !response.razorpay_payment_id || !response.razorpay_signature) {
               throw new Error("Invalid Razorpay response");
             }
-
-            const registrationData = {
-              name: formData.name,
-              phone: formData.phone,
-              collegeName: formData.collegeName,
-              course: formData.course,
-              hodName: formData.hodName,
-              hodPhone: formData.hodPhone,
-              transactionId: `${response.razorpay_order_id}_${response.razorpay_payment_id}`,
-              events: order.selectedEvents,
-              eventDetails: Object.fromEntries(
-                Object.entries(eventDetails).filter(([event, participants]) =>
-                  Object.values(participants).some(
-                    (participant) => participant.trim() !== ""
-                  )
-                )
-              ),
-              totalAmount: order.amount / 100, // Ensure correct amount is used
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-            };
-
-            // Sending data to backend for validation
+  
+            registrationData.transactionId = `${response.razorpay_order_id}_${response.razorpay_payment_id}`;
+            registrationData.razorpay_order_id = response.razorpay_order_id;
+            registrationData.razorpay_payment_id = response.razorpay_payment_id;
+            registrationData.razorpay_signature = response.razorpay_signature;
+  
             const result = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, registrationData);
-
+  
             console.log("Registration Successful:", JSON.stringify(result.data));
-            setPaymentSuccess(!paymentSuccess);
+            setPaymentSuccess((prev) => !prev);
             setRegisteredDetails(result.data);
           } catch (error) {
-            console.error("Payment validation error:", error);
+            console.error("Payment validation error:", error.response ? error.response.data : error.message);
+            alert("Registration failed: " + (error.response?.data?.message || error.message));
           }
         },
         notes: { address: "Razorpay Corporate Office" },
         theme: { color: "#3399cc" },
+        modal: {
+          ondismiss: function () {
+            console.warn("User closed the payment gateway.");
+            alert("Payment was cancelled. Please try again.");
+          },
+          escape: false,
+          backdropclose: false,
+        },
       };
-
+  
       var rzp1 = new window.Razorpay(options);
+  
       rzp1.on("payment.failed", function (response) {
         console.error("Payment failed", response.error);
         alert(response.error.description);
       });
-
-      rzp1.open();
-      setPaymentLoading(false);
+  
+      await new Promise((resolve, reject) => {
+        rzp1.on("payment.success", resolve);
+        rzp1.on("payment.failed", reject);
+        rzp1.open();
+      });
     } catch (error) {
-      console.error("Order creation error:", error);
+      console.error("Order creation error:", error.response ? error.response.data : error.message);
+    } finally {
+      setPaymentLoading(false);
     }
   };
+  
 
 
 
@@ -517,7 +594,7 @@ const Register = () => {
           </p>
 
           <div style={{ padding: "10px", color: "white" }}>
-            <p><strong style={{ color: "red" }}>Amount Paid:</strong> ₹{registeredDetails.user.totalAmount}</p>
+            <p><strong style={{ color: "red" }}>Amount Paid:</strong> â‚¹{registeredDetails.user.totalAmount}</p>
             <p><strong style={{ color: "red" }}>Name:</strong> {registeredDetails.user.name}</p>
             <p><strong style={{ color: "red" }}>Phone:</strong> {registeredDetails.user.phone}</p>
             <p><strong style={{ color: "red" }}>College:</strong> {registeredDetails.user.collegeName}</p>
@@ -571,7 +648,7 @@ const Register = () => {
           {/* Basic Form Fields */}
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="name">Head Name:</label>
+              <label htmlFor="name">Coordinator Name:</label>
               <input
                 type="text"
                 id="name"
@@ -583,7 +660,7 @@ const Register = () => {
               {errors.name && <span className="error">{errors.name}</span>}
             </div>
             <div className="form-group">
-              <label htmlFor="phone">Head Phone no:</label>
+              <label htmlFor="phone">Coordinator Phone no:</label>
               <input
                 type="number"
                 id="phone"
@@ -1089,13 +1166,13 @@ const Register = () => {
           )}
 
           <div>
-            <h3 style={{ fontFamily: 'Avengers', fontSize: 22 }}>Total Payment : ₹{totalAmount}</h3>
+            <h3 style={{ fontFamily: 'Avengers', fontSize: 22 }}>Total Payment : â‚¹{totalAmount}</h3>
           </div>
 
           {/* Pay Button */}
-          <button type="button" className="pay-button" onClick={paymentHandler}>
-            {!paymentLoading ? <ButtonLoader /> : <p>Pay</p>}
-          </button>
+          <button type="button" className="pay-button" onClick={paymentHandler} disabled={paymentLoading}>
+  		{paymentLoading ? <ButtonLoader /> : <p>Pay</p>}
+		</button>
 
           {/* Query Section */}
           <div className="query-section">
