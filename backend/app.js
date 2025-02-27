@@ -51,8 +51,13 @@ app.use(cors()); // Allow frontend requests
 
 app.post("/order", async (req, res) => {
   const totalAvailableTechnicalEvents = 7;
+
   try {
-    const { events, culturalEvents, eventDetails } = req.body;
+    const { registrationId, events, culturalEvents, eventDetails } = req.body;
+
+    if (!registrationId) {
+      return res.status(400).json({ message: "Registration ID is required" });
+    }
 
     // Securely calculate total amount on backend
     const calculateTotalAmount = () => {
@@ -87,6 +92,7 @@ app.post("/order", async (req, res) => {
 
     const amount = calculateTotalAmount();
 
+    // Create Razorpay order
     const razorpay = new Razorpay({
       key_id: process.env.RAZORPAY_KEY_ID,
       key_secret: process.env.RAZORPAY_SECRET,
@@ -95,14 +101,14 @@ app.post("/order", async (req, res) => {
     const options = {
       amount,
       currency: "INR",
-      receipt: `receipt_${Date.now()}`,
+      receipt: `receipt_${registrationId}`, // Link order to registration ID
     };
 
     const order = await razorpay.orders.create(options);
 
     if (!order) {
       console.log("Order creation failed");
-      return res.status(500).send("Error");
+      return res.status(500).json({ message: "Error creating order" });
     }
 
     console.log("Order generated:", order);
@@ -111,11 +117,12 @@ app.post("/order", async (req, res) => {
       id: order.id,
       amount: order.amount,
       currency: order.currency,
-      selectedEvents: [...events, ...culturalEvents], // Send back to frontend
+      registrationId, // Send registrationId back to frontend
+      selectedEvents: [...events, ...culturalEvents],
     });
   } catch (err) {
     console.log("ERROR IN ORDER API:", err);
-    res.status(500).send("Error");
+    res.status(500).json({ message: "Internal Server Error", error: err.message });
   }
 });
 
@@ -139,7 +146,9 @@ app.post("/order", async (req, res) => {
 //   });
 // });
 
-app.post("/register", registerUserToDB );
+app.post("/register", registerUserToDB);
+
+
 
 app.listen(5088, () => {
   console.log("Listening on port", PORT);
